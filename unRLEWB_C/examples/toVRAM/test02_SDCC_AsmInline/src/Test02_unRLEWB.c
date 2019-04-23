@@ -34,7 +34,6 @@ void testRLEWB();
 
 void showPicture();
 
-void fillOrdered();
 
 void vpoke_block(uint address, char* block, uint size);
 void WAIT(uint cicles);
@@ -66,18 +65,7 @@ void main(void)
   WAIT(220);
      
   testRLEWB();
-  
-   
 
-//EXIT MSXDOS
-/*  screen(0);
-    
-__asm
- 	ld b,4(ix)
-	ld c,#0x62
-	call 5 
-__endasm;*/
-//end EXIT
 
   return;
 }
@@ -104,43 +92,6 @@ void WAIT(uint cicles)
   for(i=0;i<cicles;i++) HALT;
   return;
 }
-
-
-
-
-
-void testRLEWB()
-{
-  color(0,0,1);
-  screen(2);
-//  setSpritesSize(0);
-//  setSpritesZoom(true);
-  
-  showPicture();
-
-  
-  while(1) //to infinity and beyond!
-  {
-    HALT;
-  }
-   
-}
-
-
-
-
-
-// show tileset
-void fillOrdered()
-{
-  byte i;
-  for(i=0;i<255;i++) vpoke(BASE5+i,i);
-
-  return;
-}
-
-
-
 
 
 
@@ -176,7 +127,28 @@ void vpoke_block(uint address, char* block, uint size)
 
 
 
-void showPicture(){
+void testRLEWB()
+{
+  color(0,0,1);
+  screen(2);
+//  setSpritesSize(0);
+//  setSpritesZoom(true);
+  
+  showPicture();
+
+  
+  while(1) //to infinity and beyond!
+  {
+    HALT;
+  }
+   
+}
+
+
+
+
+void showPicture() __naked
+{
 __asm 
 
   halt

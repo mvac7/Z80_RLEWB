@@ -1,47 +1,62 @@
 /* =============================================================================
-   test RLEWB & MSX TILES devtool
-   v1.0 (27 jun 2014)
-   Description:
-    test output data from MSX TILES devtool or tMSgfX
-    & test unWBRLEtoVRAM library (RLEWB to VRAM unpacker)
+  Test SDCC textmode MSXDOS Library
+  
+  Version: 1.0
+  Date: 7/05/2018
+  Author: mvac7/303bcn
+  Architecture: MSX
+  Format: .COM (MSXDOS)
+  Programming language: C
+  WEB: 
+  mail: mvac7303b@gmail.com
+   
+  Description:
+    Test textmode MSX DOS library
+    
+  History of versions:
+  - v1.3 ( 7/05/2018) current version
+  - v1.2 (27/03/2017)
+  - v1.1 (27/02/2017) 
 ============================================================================= */
 
 #include "../include/newTypes.h"
-#include "../include/VDP_TMS9918.h"
+#include "../include/msxSystemVars.h"
+#include "../include/msxBIOS.h"
+#include "../include/msxDOS.h"
+
+#include "../include/VDP_TMS9918A.h"
 #include "../include/unRLEWBtoVRAM.h"
-
-
 
 #define  HALT __asm halt __endasm   //wait for the next interrupt
 
 
 
-// Definitions of Labels -------------------------------------------------------
-
-//BIOS addresses
-#define _CHKRAM 0x0000
-#define _CALSLT 0x001C
-#define _CHGET  0x009F
-#define _GTSTCK 0x00D5
-#define _GTTRIG 0x00D8
-#define _SNSMAT 0x0141
-#define _KILBUF 0x0156
+// MSX-DOS Calls ---------------------------------------------------------------
+#define  SYSTEM 0x0005  // MSX-DOS entry
+//#define  RDSLT  0x000C  // Reads the value of an address in another slot
+//#define  WRSLT  0x0014  // Writes a value to an address in another slot.
+//#define  CALSLT 0x001C  // Executes inter-slot call.
+//#define  ENASLT 0x0024  // Switches indicated slot at indicated page on perpetual
+//#define  CALLF  0x0030  // Executes an interslot call
 
 
 
-//  definition of functions  ---------------------------------------------------
+
+// Function Declarations -------------------------------------------------------
+void System(char code);
+
+char PEEK(uint address);
+void POKE(uint address, char value);
+
+char INKEY();
+
+void WAIT(uint cicles);
+
 void testRLEWB();
 
 
-void WAIT(uint cicles);
-byte inkey();
 
-void print0(byte column, byte line, char* text); //print in screen 0
-void print(byte column, byte line, char* text);  //print in screen 1 or 2
-void vprint(uint vaddr, char* text);
-
-
-
+// constants  ------------------------------------------------------------------
 // tileset EGYPTIAN SCREEN
 // pattern data
 // RLE WB compressed - Original size= 6144 - Final size= 1677
@@ -245,8 +260,7 @@ const char TILESET_col[]={
 0x06,0x4D,0xB4,0x80,0x05,0xDB,0x80,0x81,0x6B,0x80,0x67,0xBA,0xDB,0x80,0x03,0x6B,
 0x80,0x02,0xAB,0x4B,0x80,0x05,0x6B,0xAA,0x80,0x03,0x6B,0x80,0xFE,0xAB,0x80,0xFE,
 0xAB,0x80,0x27,0xAB,0x80,0x35,0xBF,0x80,0xFF};
-
-
+// global variable definition --------------------------------------------------
 
 
 // Functions -------------------------------------------------------------------
@@ -255,44 +269,118 @@ const char TILESET_col[]={
 //
 void main(void)
 {
-
-  screen(1);
-  color(15,4,4);
-
-  HALT;
-  print(4, 9,"Test MSX TILES detool &");
-  print(4,10,"RLE WB to VRAM unpacker"); 
+  char colorInk=0;
+  char colorBG=0;
+  char colorBDR=0;
+  char scrcolumns=0;
+  //char MSXsion=0;
   
-  WAIT(220);
-     
+  colorInk=PEEK(FORCLR);
+  colorBG=PEEK(BAKCLR);
+  colorBDR=PEEK(BDRCLR);
+  scrcolumns=PEEK(LINLEN);
+  
+  
   testRLEWB();
-  
-   
 
-//EXIT MSXDOS
-/*  screen(0);
+//EXIT MSXDOS ------------------------------------------------------------------
+  //put the screen as it was.
+  COLOR(colorInk,colorBG,colorBDR);
+  //WIDTH(scrcolumns);
+
+  if(scrcolumns<33) SCREEN(1);
+  else SCREEN(0);
+  //
     
-__asm
- 	ld b,4(ix)
-	ld c,#0x62
-	call 5 
-__endasm;*/
-//end EXIT
+  System(_TERM0); 
+//--------------------------------------------------------------------- end EXIT
 
-  return;
 }
+
+
+
+// call system functions 
+// see MSX Assembly Page > MSX-DOS 2 function calls
+// http://map.grauw.nl/resources/dos2_functioncalls.php
+void System(char code)
+{
+code;
+__asm
+	push IX
+	ld   IX,#0
+	add  IX,SP
+
+	ld   C,4(IX)
+	call SYSTEM
+
+	pop  IX
+__endasm; 
+}
+
+
+
+char PEEK(uint address)
+{
+address;
+__asm
+  push IX
+  ld   IX,#0
+  add  IX,SP
+    
+  ld   L,4(IX)
+  ld   H,5(IX)
+  ld   L,(HL)
+
+  pop  IX
+__endasm;
+}
+
+
+
+void POKE(uint address, char value)
+{
+address;value;
+__asm
+  push IX
+  ld   IX,#0
+  add  IX,SP 
+    
+  ld   L,4(IX)
+  ld   H,5(IX)
+  ld   A,6(IX)
+  ld   (HL),A
+
+  pop  IX  
+__endasm;
+}
+
+
+
+
 
 
 
 /* =============================================================================
 One character input (waiting)
 ============================================================================= */
-byte inkey(){
+char INKEY()
+{
 __asm   
-   call    _CHGET
-   ld l,a
+  push IX
+  ld   IX,#0
+  add  IX,SP
+  
+  ld   IX,#CHGET
+  ld   IY,(EXPTBL-1)
+  call CALSLT
+  ei
+  
+  ld   L,A
+  pop  IX
 __endasm;
 }
+
+
 
 
 
@@ -307,52 +395,19 @@ void WAIT(uint cicles)
 
 
 
-//print in screen 0
-void print0(byte column, byte line, char* text)
-{
-  uint vaddr = BASE0 + (line*40)+column; // calcula la posicion en la VRAM
-  vprint(vaddr, text);
-}
-
-
-
-//print in screen 1 or 2
-void print(byte column, byte line, char* text)
-{
-  uint vaddr = BASE10 + (line*32)+column; // calcula la posicion en la VRAM
-  vprint(vaddr, text);
-}
-
-
-
-void vprint(uint vaddr, char* text)
-{
-  while(*(text)) vpoke(vaddr++,*(text++));
-}
-
-
-
-
 
 // TEST functions ##############################################################
 void testRLEWB()
 {
-  color(0,0,1);
-  screen(2);
+  COLOR(0,0,1);
+  SCREEN(2);
 //  setSpritesSize(0);
 //  setSpritesZoom(true);
-
   
   unRLEWBtoVRAM ((unsigned int) TILESET_pat, BASE12);
   unRLEWBtoVRAM ((unsigned int) TILESET_col, BASE11);
-
   
-  while(1) //to infinity and beyond!
-  {
-    HALT;
-  }
+  INKEY();
    
 }
 //########################################################### END TEST functions
-
-
