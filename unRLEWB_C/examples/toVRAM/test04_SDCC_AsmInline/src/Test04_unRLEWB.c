@@ -1,9 +1,9 @@
 /* =============================================================================
-   test GFX (MSX TILES devtool)
+   test RLEWB & MSX TILES devtool
    v1.0 (27 jun 2014)
    Description:
-    test output data from MSX TILES devtool
-    & test unWBRLE2VRAM library (RLE WB to VRAM unpacker)
+    test output data from MSX TILES devtool or tMSgfX
+    & test unRLEWB2VRAM library (RLE WB to VRAM decompress)
 ============================================================================= */
 
 #include "../include/newTypes.h"

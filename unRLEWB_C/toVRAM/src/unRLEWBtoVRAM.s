@@ -52,7 +52,7 @@ _unRLEWBtoVRAM::
 ;=========================================================================== 
 unRLEWBVRAM::
 
-  in   A,(VDPSTATUS)
+  ;in   A,(VDPSTATUS)
   
   di
   ld   A,(#MSXVER)

@@ -11,22 +11,22 @@ RLEWB_DC   EQU   $80
 ;===========================================================================
 ; unRLEWBtoVRAM v1.2 (20 April 2019)
 ;
-; Function : Unpack WB RLE to VRAM
+; Function : Decompress RLEWB data to VRAM
 ;
 ; Historic of versions:
 ;   v1.1  (26 jun 2014)
 ;     
-; Input    : HL - source RAM RLE data address
+; Input    : HL - source RAM RLEWB data address
 ;            DE - target VRAM address
 ;
 ; DC nn dd            ; repeat nn ($1-$FE)+1 dd value
 ; DC $0               ; for one $80 value
 ; DC $FF              ; end of data block
-; dd (!= DC )         ; raw data             
+; dd (!= DC)          ; raw data             
 ;=========================================================================== 
 unRLEWBtoVRAM:
 
-  in   A,[VDPSTATUS]
+  ;in   A,[VDPSTATUS]
   
   di
   ld   A,[MSXVER]

@@ -1,8 +1,8 @@
 /* =============================================================================
-  Test SDCC textmode MSXDOS Library
+  test RLEWB & MSX TILES devtool
   
   Version: 1.0
-  Date: 7/05/2018
+  Date: 23/04/2019
   Author: mvac7/303bcn
   Architecture: MSX
   Format: .COM (MSXDOS)
@@ -11,12 +11,11 @@
   mail: mvac7303b@gmail.com
    
   Description:
-    Test textmode MSX DOS library
+    test output data from MSX TILES devtool or tMSgfX
+    & test unRLEWB2VRAM library (RLE WB to VRAM decompress)
     
   History of versions:
-  - v1.3 ( 7/05/2018) current version
-  - v1.2 (27/03/2017)
-  - v1.1 (27/02/2017) 
+  - v1.0 (23/04/2019)
 ============================================================================= */
 
 #include "../include/newTypes.h"
@@ -33,11 +32,7 @@
 
 // MSX-DOS Calls ---------------------------------------------------------------
 #define  SYSTEM 0x0005  // MSX-DOS entry
-//#define  RDSLT  0x000C  // Reads the value of an address in another slot
-//#define  WRSLT  0x0014  // Writes a value to an address in another slot.
-//#define  CALSLT 0x001C  // Executes inter-slot call.
-//#define  ENASLT 0x0024  // Switches indicated slot at indicated page on perpetual
-//#define  CALLF  0x0030  // Executes an interslot call
+
 
 
 

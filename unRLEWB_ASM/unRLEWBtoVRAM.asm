@@ -26,7 +26,7 @@ RLEWB_DC   EQU   $80
 ;=========================================================================== 
 unRLEWBtoVRAM:
 
-  in   A,[VDPSTATUS]
+  ;in   A,[VDPSTATUS]
   
   di
   ld   A,[MSXVER]
