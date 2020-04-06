@@ -1,23 +1,22 @@
 # Z80 RLEWB for SDCC & Assembler
 
-Version: 1.2
-
-Date: 20/04/2019
-
+```
+Version: 1.3
+Date: 24 March 2020
 Author: mvac7/303bcn
-
 Architecture: MSX
-
 Programming language: C & Assembler
-
-WEB:
- 
 mail: mvac7303b@gmail.com
+```
 
 
-History of versions:
-- v1.1 (26/06/2014)< First version 
+## Sorry! This text is pending correction of the English translation
 
+
+### History of versions:
+- v1.1 (26 jun 2014) First version 
+- v1.2 (20 April 2019) optimized and first version on github
+- v1.3 (24 March 2020) SDsnatcher Issue #1 - Enhanced to pass the Acid2Test
 
 
 ## 1. Introduction
@@ -42,6 +41,7 @@ Includes applications for testing and learning purposes.
 Thanks for Info & help, to:
 
 * SMS Power > http://www.smspower.org/Development/Index
+* SDsnatcher > https://github.com/sdsnatcher
 * Avelino Herrera > http://msx.atlantes.org/index_es.html
 * Nerlaska > http://albertodehoyonebot.blogspot.com.es
 * Fubu > http://www.gamerachan.org/fubu/
@@ -80,7 +80,19 @@ Or:
 
 
 
-## 4. Functions
+## 4. Encoder description
+
+```
+ CD = Control Digit = $80
+
+ CD + $0         --> for one $80 value
+ CD + $FF        --> end of data block
+ CD + nn + dd    --> repeat nn ($1-$FE)+1 dd value
+ dd (!= CD)      --> raw data
+```
+
+
+## 5. Functions
 
 * (SDCC) unRLEWBtoRAM (unsigned int sourceADDR, unsigned int targetADDR) Decompress RLEWB data to RAM
 * (SDCC Assembler inline) unRLEWBRAM  <--- HL = data address ; DE = RAM address - Decompress RLEWB data to RAM

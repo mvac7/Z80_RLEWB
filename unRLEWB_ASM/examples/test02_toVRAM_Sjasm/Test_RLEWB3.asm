@@ -145,7 +145,7 @@ ENDTEST:
 
 
 ;include	"unRLEWBtoRAM.asm"
-  include "unRLEWBtoVRAM.asm"  
+  include "unRLEWBtoVRAM_sjasm.asm"  
 
 
 

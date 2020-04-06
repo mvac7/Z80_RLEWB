@@ -113,8 +113,7 @@ EXIT_HELP:
   
 
 
-;.INCLUDE	"unRLEWBtoRAM.asm"
-.INCLUDE	"unRLEWBtoVRAM.asm"
+.INCLUDE	"unRLEWBtoVRAM_asmsx.asm"
 
 
 
