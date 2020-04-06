@@ -85,19 +85,22 @@ Or:
 ```
  CD = Control Digit = $80
 
- CD + $0         --> for one $80 value
- CD + $FF        --> end of data block
- CD + nn + dd    --> repeat nn ($1-$FE)+1 dd value
- dd (!= CD)      --> raw data
+ CD + $0         --> When the value to be written to the output is equal to the Control Digit
+ CD + $FF        --> End - Decompressed until it finds this value.
+ CD + nn + dd    --> Repeat nn ($1-$FE)+1 dd value
+ dd (!= CD)      --> Raw data. Values without repetition.
 ```
 
 
 ## 5. Functions
 
-* (SDCC) unRLEWBtoRAM (unsigned int sourceADDR, unsigned int targetADDR) Decompress RLEWB data to RAM
-* (SDCC Assembler inline) unRLEWBRAM  <--- HL = data address ; DE = RAM address - Decompress RLEWB data to RAM
-* (SDCC) unRLEWBtoVRAM (unsigned int RAM, unsigned int VRAM) Decompress RLEWB data to VRAM
-* (SDCC Assembler inline) unRLEWBVRAM  <--- HL = data address ; DE = VRAM address - Decompress RLEWB data to VRAM
-* (Assembler) unRLEWBtoRAM <--- HL = data address ; DE = RAM address - Decompress RLEWB data to RAM
-* (Assembler) unRLEWBtoVAM <--- HL = data address ; DE = VRAM address - Decompress RLEWB data to VRAM
+### C
+* unRLEWBtoRAM (unsigned int sourceADDR, unsigned int targetADDR) Decompress RLEWB data to RAM
+* (Assembler inline) unRLEWBRAM  <--- HL = data address ; DE = RAM address - Decompress RLEWB data to RAM
+* unRLEWBtoVRAM (unsigned int RAM, unsigned int VRAM) Decompress RLEWB data to VRAM
+* (Assembler inline) unRLEWBVRAM  <--- HL = data address ; DE = VRAM address - Decompress RLEWB data to VRAM
+
+## Assembler
+* unRLEWBtoRAM <--- HL = data address ; DE = RAM address - Decompress RLEWB data to RAM
+* unRLEWBtoVAM <--- HL = data address ; DE = VRAM address - Decompress RLEWB data to VRAM
  

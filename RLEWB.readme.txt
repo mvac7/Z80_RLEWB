@@ -113,10 +113,11 @@ Or:
 
  CD = Control Digit = $80
 
- CD + $0         --> for one $80 value
- CD + $FF        --> end of data block
- CD + nn + dd    --> repeat nn ($1-$FE)+1 dd value
- dd (!= CD)      --> raw data	
+ CD + $0         --> When the value to be written to the output is equal to the 
+                     Control Digit
+ CD + $FF        --> End - Decompressed until it finds this value.
+ CD + nn + dd    --> Repeat nn ($1-$FE)+1 dd value
+ dd (!= CD)      --> Raw data. Values without repetition.	
  
 --------------------------------------------------------------------------------
 5 unRLEWBtoRAM Functions (SDCC)
