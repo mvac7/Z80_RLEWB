@@ -76,11 +76,12 @@ A cross assembler:
 
 ---
 
-## Functions
+## Functions for C
 
-### C
+### unRLEWBtoRAM
 
-#### unRLEWBtoRAM
+- `unRLEWBtoRAM.rel`
+- `unRLEWBtoRAM.h`
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -113,9 +114,12 @@ void main()
 }
 ```
 
+<br/>
 
+### unRLEWBRAM (for Assembler inline)
 
-#### unRLEWBRAM (for Assembler inline)
+- `unRLEWBtoRAM.rel`
+- `unRLEWBtoRAM.h`
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBRAM</th></tr>
@@ -159,9 +163,13 @@ DATA_COL:
 __endasm;
 }
 ```
- 
 
-#### unRLEWBtoVRAM
+<br/> 
+
+### unRLEWBtoVRAM
+
+- `unRLEWBtoVRAM.rel`
+- `unRLEWBtoVRAM.h`
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -195,9 +203,12 @@ void main()
 }
 ```          
           
+<br/>
 
+### unRLEWBVRAM (for Assembler inline)
 
-#### unRLEWBVRAM (for Assembler inline)
+- `unRLEWBtoVRAM.rel`
+- `unRLEWBtoVRAM.h`
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBVRAM</th></tr>
@@ -237,9 +248,15 @@ __endasm;
 }
 ```
 
-## Assembler            
+<br/>
 
-#### unRLEWBtoRAM
+---
+
+## Assembler Routines            
+
+### unRLEWBtoRAM
+
+- `unRLEWBtoRAM.asm`
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -277,10 +294,12 @@ DATA_COL:
   db $FE,$F3,$80,$FE,$F3,$F3,$F3,$80,$FF
 ```
 
+<br/>
 
+###  unRLEWBtoVRAM
 
---------------------------------------------------------------------------------
-8 unRLEWBtoVRAM
+- `unRLEWBtoVRAM_asmsx.asm`
+- `unRLEWBtoVRAM_sjasm.asm`
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -310,9 +329,9 @@ DATA_COL:
   db $FE,$F3,$80,$FE,$F3,$F3,$F3,$80,$FF 
 ```            
 
+<br/>
 
-
-
+---
 
 ## Acknowledgments
   
