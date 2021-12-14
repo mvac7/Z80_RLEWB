@@ -76,6 +76,17 @@ A cross assembler:
 
 ---
 
+
+## Software to compress in RLEWB
+
+- [RLE-WB compressor](https://github.com/ericb59/rlewb-Compressor) for MSX Fusion-C by Eric Boez. `MacOS` `Windows 64bits` `Linux 64bits`
+- [ByteniZ3R devtool](https://github.com/mvac7/mSXdevtools_ByteniZ3R) Another generator of data tables in Bytes. `.net 4`
+
+
+<br/>
+
+---
+
 ## Functions for C
 
 ### unRLEWBtoRAM
