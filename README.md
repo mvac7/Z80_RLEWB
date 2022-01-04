@@ -1,11 +1,4 @@
-# Z80 RLEWB for SDCC and Assembler
-
-```
-Author: mvac7
-Architecture: MSX
-Programming language: C or Assembler
-```
-
+# RLEWB Run-length WB Encoding
 
 
 ## Sorry! This text is pending correction of the English translation
@@ -14,15 +7,18 @@ Programming language: C or Assembler
 ---
 
 ## History of versions:
-- v1.1 (26 jun 2014) First version 
-- v1.2 (20 April 2019) optimized and first version on github
 - v1.3 (24 March 2020) SDsnatcher Issue #1 - Enhanced to pass the Acid2Test
+- v1.2 (20 April 2019) optimized and first version on github
+- v1.1 (26 jun 2014) First version 
+
 
 <br/>
 
 ---
 
 ## Description
+
+This repository collects resources to use this decompression algorithm definition.
 
 This project is an Open Source library.
 
@@ -68,7 +64,7 @@ A cross assembler:
 
  CD + $0         --> When the value to be written to the output is equal to the Control Digit
  CD + $FF        --> End - Decompressed until it finds this value.
- CD + nn + dd    --> Repeat nn ($1-$FE)+1 dd value
+ CD + nn + dd    --> Repeat nn +1 ($1-$FE) value
  dd (!= CD)      --> Raw data. Values without repetition.
 ```
 
@@ -91,8 +87,8 @@ A cross assembler:
 
 ### unRLEWBtoRAM
 
-- `unRLEWBtoRAM.rel`
-- `unRLEWBtoRAM.h`
+- [`unRLEWBtoRAM.rel`](unRLEWB_C/toRAM/build)
+- [`unRLEWBtoRAM.h`](unRLEWB_C/toRAM/unRLEWBtoRAM.h)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -104,7 +100,7 @@ A cross assembler:
 
 **Example**
 
-`unRLEWB_C/examples/toRAM/test01_SDCC`
+[`unRLEWB_C/examples/toRAM/test01_SDCC`](unRLEWB_C/examples/toRAM/test01_SDCC)
 
 ```c            
 // RLE WB compressed - Original size= 2048 - Compress size= 33
@@ -129,8 +125,8 @@ void main()
 
 ### unRLEWBRAM (for Assembler inline)
 
-- `unRLEWBtoRAM.rel`
-- `unRLEWBtoRAM.h`
+- [`unRLEWBtoRAM.rel`](unRLEWB_C/toRAM/build)
+- [`unRLEWBtoRAM.h`](unRLEWB_C/toRAM/unRLEWBtoRAM.h)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBRAM</th></tr>
@@ -141,7 +137,7 @@ void main()
  
 **Example**
 
-`unRLEWB_C/examples/toRAM/test02_SDCC`
+[`unRLEWB_C/examples/toRAM/test02_SDCC_AsmInline`](unRLEWB_C/examples/toRAM/test02_SDCC_AsmInline)
 
 ```assembly
 void SetDATA() __naked
@@ -179,8 +175,8 @@ __endasm;
 
 ### unRLEWBtoVRAM
 
-- `unRLEWBtoVRAM.rel`
-- `unRLEWBtoVRAM.h`
+- [`unRLEWBtoVRAM.rel`](unRLEWB_C/toVRAM/build)
+- [`unRLEWBtoVRAM.h`](unRLEWB_C/toVRAM/unRLEWBtoVRAM.h)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -189,11 +185,11 @@ __endasm;
 <tr><th rowspan=3>Input</th><td>unsigned int</td><td>source data address</td></tr>
 <tr><td>unsigned int</td><td>target VRAM address</td></tr>
 </table>
+
  
 **Example**
  
-`unRLEWB_C/examples/toVRAM/test03_SDCC` 
-
+[`unRLEWB_C/examples/toVRAM/test03_SDCC`](unRLEWB_C/examples/toVRAM/test03_SDCC) 
 
 ```c            
 // RLE WB compressed - Original size= 2048 - Compress size= 33
@@ -218,8 +214,8 @@ void main()
 
 ### unRLEWBVRAM (for Assembler inline)
 
-- `unRLEWBtoVRAM.rel`
-- `unRLEWBtoVRAM.h`
+- [`unRLEWBtoVRAM.rel`](unRLEWB_C/toVRAM/build)
+- [`unRLEWBtoVRAM.h`](unRLEWB_C/toVRAM/unRLEWBtoVRAM.h)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBVRAM</th></tr>
@@ -230,8 +226,7 @@ void main()
  
 **Example**
 
-`unRLEWB_ASM/examples/toVRAM/test04_SDCC_AsmInline`
- 
+[`unRLEWB_C/examples/toVRAM/test04_SDCC_AsmInline`](unRLEWB_C/examples/toVRAM/test04_SDCC_AsmInline)
 
 ```assembly
 void SetGFX() __naked
@@ -267,7 +262,7 @@ __endasm;
 
 ### unRLEWBtoRAM
 
-- `unRLEWBtoRAM.asm`
+(`unRLEWBtoRAM.asm`)[unRLEWB_ASM/unRLEWBtoRAM.asm]
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -278,7 +273,7 @@ __endasm;
  
 **Example**
 
-`unRLEWB_ASM/examples/test03_toRAM_Sjasm`
+`examples/test03_toRAM_Sjasm`)[unRLEWB_ASM/examples/test03_toRAM_Sjasm]
  
 ```assembly
   ;decompress to RAM
@@ -309,8 +304,8 @@ DATA_COL:
 
 ###  unRLEWBtoVRAM
 
-- `unRLEWBtoVRAM_asmsx.asm`
-- `unRLEWBtoVRAM_sjasm.asm`
+- (`unRLEWB_ASM/unRLEWBtoVRAM_asmsx.asm`)[unRLEWB_ASM/unRLEWBtoVRAM_asmsx.asm]
+- (`unRLEWB_ASM/unRLEWBtoVRAM_sjasm.asm`)[unRLEWB_ASM/unRLEWBtoVRAM_sjasm.asm]
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -321,7 +316,7 @@ DATA_COL:
  
 **Example** 
 
-`unRLEWB_ASM/examples/test02_toVRAM_Sjasm`
+(`unRLEWB_ASM/examples/test02_toVRAM_Sjasm`)[unRLEWB_ASM/examples/test02_toVRAM_Sjasm]
 
 ```assembly 
   ld   HL,DATA_COL
@@ -339,6 +334,26 @@ DATA_COL:
   db $80,$0F,$F2,$80,$0F,$51,$80,$0F,$F2,$80,$17,$51,$80,$67,$F2,$80
   db $FE,$F3,$80,$FE,$F3,$F3,$F3,$80,$FF 
 ```            
+
+<br/>
+
+---
+
+## Visual Basic .net   
+
+
+### RLEWB Class
+
+(`VisualBasic_dotnet/RLEWB.vb`)[VisualBasic_dotnet/RLEWB.vb]
+
+<table>
+<tr><th colspan=3 align="left">GetRLEWB</th></tr>
+<tr><th>Function</th><td colspan=2>GetRLEWB(ByVal data() As Byte) As Byte()</td></tr>
+<tr><td colspan=3>Compress input Byte Array</td></tr>
+<tr><th>Input</th><td>Byte()</td><td>Raw data</td></tr>
+<tr><th>Output</th><td>Byte()</td><td>Compress data</td></tr>
+</table>
+
 
 <br/>
 
