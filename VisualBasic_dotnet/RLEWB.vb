@@ -1,4 +1,4 @@
-﻿Public Class RLE
+﻿Public Class RLEWB
 
     Private Const RLEWB_CONTROL As Byte = 128
     Private Const RLEWB_END As Byte = &HFF
