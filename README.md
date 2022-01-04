@@ -236,8 +236,7 @@ __asm
   ld   DE,#0x2000   ;BASE11 Color Table
   call unRLEWBVRAM
   
-  ret
-  
+  ret  
   
 ; RLE WB compressed - Original size= 2048 - Compress size= 105  
 DATA_COL:
@@ -262,7 +261,7 @@ __endasm;
 
 ### unRLEWBtoRAM
 
-(`unRLEWBtoRAM.asm`)[unRLEWB_ASM/unRLEWBtoRAM.asm]
+[`unRLEWBtoRAM.asm`](unRLEWB_ASM/unRLEWBtoRAM.asm)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -273,7 +272,7 @@ __endasm;
  
 **Example**
 
-`examples/test03_toRAM_Sjasm`)[unRLEWB_ASM/examples/test03_toRAM_Sjasm]
+[`examples/test03_toRAM_Sjasm`](unRLEWB_ASM/examples/test03_toRAM_Sjasm)
  
 ```assembly
   ;decompress to RAM
@@ -304,8 +303,8 @@ DATA_COL:
 
 ###  unRLEWBtoVRAM
 
-- (`unRLEWB_ASM/unRLEWBtoVRAM_asmsx.asm`)[unRLEWB_ASM/unRLEWBtoVRAM_asmsx.asm]
-- (`unRLEWB_ASM/unRLEWBtoVRAM_sjasm.asm`)[unRLEWB_ASM/unRLEWBtoVRAM_sjasm.asm]
+- [`unRLEWB_ASM/unRLEWBtoVRAM_asmsx.asm`](unRLEWB_ASM/unRLEWBtoVRAM_asmsx.asm)
+- [`unRLEWB_ASM/unRLEWBtoVRAM_sjasm.asm`](unRLEWB_ASM/unRLEWBtoVRAM_sjasm.asm)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -316,7 +315,7 @@ DATA_COL:
  
 **Example** 
 
-(`unRLEWB_ASM/examples/test02_toVRAM_Sjasm`)[unRLEWB_ASM/examples/test02_toVRAM_Sjasm]
+[`unRLEWB_ASM/examples/test02_toVRAM_Sjasm`](unRLEWB_ASM/examples/test02_toVRAM_Sjasm)
 
 ```assembly 
   ld   HL,DATA_COL
@@ -341,10 +340,9 @@ DATA_COL:
 
 ## Visual Basic .net   
 
-
 ### RLEWB Class
 
-(`VisualBasic_dotnet/RLEWB.vb`)[VisualBasic_dotnet/RLEWB.vb]
+[`VisualBasic_dotnet/RLEWB.vb`](VisualBasic_dotnet/RLEWB.vb)
 
 <table>
 <tr><th colspan=3 align="left">GetRLEWB</th></tr>
@@ -353,7 +351,6 @@ DATA_COL:
 <tr><th>Input</th><td>Byte()</td><td>Raw data</td></tr>
 <tr><th>Output</th><td>Byte()</td><td>Compress data</td></tr>
 </table>
-
 
 <br/>
 
