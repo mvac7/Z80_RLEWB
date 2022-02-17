@@ -29,8 +29,6 @@
         Dim position As Integer = 0
         Dim position2 As Integer = 0
         Dim value As Byte
-        'Dim nextValue As Byte
-        'Dim valueRAW As Boolean
 
         Do
             value = data(position)
