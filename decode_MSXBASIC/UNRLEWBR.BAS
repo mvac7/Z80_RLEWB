@@ -1,5 +1,5 @@
 9000 '=================================
-9010 ' unRLEWB to RAM for BASIC v1
+9010 ' unRLEWB to RAM for MSX BASIC 
 9020 ' Decompress RLEWB data to RAM
 9030 ' Input: 
 9040 '  RESTORE [line] <-- DATAs

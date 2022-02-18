@@ -96,9 +96,9 @@
 1860 DATA ,128,6,255,127,128,3,255,254,252,248,224,224,192,128,
 1870 DATA 128,254,,128,205,,128,255
 9000 '=================================
-9010 ' unRLEWB to VRAM for BASIC v1
+9010 ' unRLEWB to VRAM for MSX BASIC
 9020 ' Decompress RLEWB data to VRAM
-9030 ' Input: 
+9030 ' Input:
 9040 '  RESTORE [line] <-- DATAs
 9050 '              DE <-- VRAM address
 9060 '=================================
@@ -114,4 +114,4 @@
 9190 FOR DE=DE TO DE+A
 9200 VPOKE DE,B
 9210 NEXT
-9220 GOTO 9100  
+9220 GOTO 9100

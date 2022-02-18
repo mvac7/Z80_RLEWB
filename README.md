@@ -364,7 +364,7 @@ The RLEWB encoder is so simple that it can be easily programmed in MSX BASIC.
 Although it may not seem like it, it can be faster than directly reading the data and dumping it to memory, 
 since repeated data is written faster, although the main advantage is that you can reduce the size of your program.
 
-Remember that when writing the DATAs, the zeros do not need to be included.
+Remember that when writing the DATA in BASIC it is not necessary to include the zeros.
 
 The best option would be to include the decompression routine in the binary itself that includes the data and execute it on load, 
 but it would be a task that you would have to do yourself since there is no tool that makes it easy for you.
@@ -373,7 +373,7 @@ but it would be a task that you would have to do yourself since there is no tool
 
 ```basic
 9000 '=================================
-9010 ' unRLEWB to RAM for BASIC v1
+9010 ' unRLEWB to RAM for MSX BASIC
 9020 ' Decompress RLEWB data to RAM
 9030 ' Input: 
 9040 '  RESTORE [line] <-- DATAs
@@ -419,7 +419,7 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 
 ```basic
 9000 '=================================
-9010 ' unRLEWB to VRAM for BASIC v1
+9010 ' unRLEWB to VRAM for MSX BASIC
 9020 ' Decompress RLEWB data to VRAM
 9030 ' Input: 
 9040 '  RESTORE [line] <-- DATAs
