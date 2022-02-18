@@ -9,9 +9,9 @@
 ## Index
 
 - [1 Description](#1-Description)
-- [2 Encoder format](#3-Encoder-format)
-- [3 Software to compress in RLEWB](#4-Software-to-compress-in-RLEWB)
-- [4 C decoders](#5-C-decoders)
+- [2 Encoder format](#2-Encoder-format)
+- [3 Software to compress in RLEWB](#3-Software-to-compress-in-RLEWB)
+- [4 C decoders](#4-C-decoders)
     - [4.1 Requirements](#41-Requirements)
     - [4.2 Decompress RLEWB to RAM](#42-Decompress-RLEWB-to-RAM)
     - [4.3 Decompress RLEWB to VRAM](#43-Decompress-RLEWB-to-VRAM)
@@ -22,7 +22,7 @@
 - [6 MSX BASIC](#6-MSX-BASIC)
     - [6.1 Decompress RLEWB to RAM](#61-Decompress-RLEWB-to-RAM)
     - [6.2 Decompress RLEWB to VRAM](#62-Decompress-RLEWB-to-VRAM)
-- [7 Visual Basic .net](#7-Visual-Basic-.net)   
+- [7 Visual Basic dotnet](#7-Visual-Basic-dotnet)   
     - [7.1 RLEWB encoder](#71-RLEWB-encoder)
 - [8 Acknowledgments](#8-Acknowledgments)
 
@@ -58,7 +58,8 @@ It is inspired by the [Wonder Boy RLE](https://www.smspower.org/Development/Comp
 
  CD + $0       --> When the value to be written to the output is equal to the Control Digit
  CD + $FF      --> End - Decompressed until it finds this value.
- CD + nn + dd  --> Repeat nn+1 ($2 to $FE) value equivalent to 3 up to 255 repetitions. In dd is the value to repeat.
+ CD +  nn + dd --> Repeat nn+1 ($2 to $FE) value equivalent to 3 up to 255 repetitions. 
+                   In dd is the value to repeat.
  dd (!= CD)    --> Raw data. Values without repetition.
 ```
 
@@ -470,7 +471,7 @@ You can find the complete example in [here](decode_MSXBASIC/examples/TESTVRAM.BA
 
 ---
 
-## 7 Visual Basic .net   
+## 7 Visual Basic dotnet   
 
 ### 7.1 RLEWB encoder
 
