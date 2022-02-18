@@ -346,10 +346,12 @@ DATA_COL:
 
 ## MSX BASIC
 
-The RLEWB encoder is so simple that it can be easily programmed in MSX BASIC, but it is very slow.
+The RLEWB encoder is so simple that it can be easily programmed in MSX BASIC. 
 
-I've included the decoder, in case you need to reduce the size of your program and you can't use upload files 
-(in case the rules of some programming contest require it).
+Although it may not seem like it, it can be faster than directly reading the data and dumping it to memory, 
+since repeated data is written faster, although the main advantage is that you can reduce the size of your program.
+
+Remember that when writing the DATAs, the zeros do not need to be included.
 
 The best option would be to include the decompression routine in the binary itself that includes the data and execute it on load, 
 but it would be a task that you would have to do yourself since there is no tool that makes it easy for you.
@@ -357,38 +359,38 @@ but it would be a task that you would have to do yourself since there is no tool
 ### Decompress RLEWB to RAM
 
 ```basic
-4000 REM ==============================================
-4010 REM unRLEWB to RAM for BASIC v1 (06 Feb 2022)
-4020 REM Decompress RLEWB data to RAM
-4030 REM Input: 
-4040 REM        RESTORE [line number] --> RLEWB datas
-4050 REM        HL --> RAM address            
-4060 REM ==============================================
-4100 READ A
-4110 IF A=&H80 THEN 4150
-4120 POKE HL,A
-4130 HL=HL+1
-4140 GOTO 4100
-4150 READ A
-4160 IF A=&HFF THEN RETURN
-4170 IF A=0 THEN A=&H80:GOTO 4120
-4180 READ D
-4190 FOR HL=HL TO HL+A
-4200 POKE HL,D
-4210 NEXT
-4220 GOTO 4100
+9000 '=================================
+9010 ' unRLEWB to RAM for BASIC v1
+9020 ' Decompress RLEWB data to RAM
+9030 ' Input: 
+9040 '  RESTORE [line] <-- DATAs
+9050 '              DE <-- RAM address
+9060 '=================================
+9100 READ A
+9110 IF A=&H80 THEN 9150
+9120 POKE DE,A
+9130 DE=DE+1
+9140 GOTO 9100
+9150 READ A
+9160 IF A=&HFF THEN RETURN
+9170 IF A=0 THEN A=&H80:GOTO 9120
+9180 READ B
+9190 FOR DE=DE TO DE+A
+9200 POKE DE,B
+9210 NEXT
+9220 GOTO 9100
 ```
 
 To use it, you will have to do a `RESTORE` with the line number where the data starts, 
-provide the value of the RAM address to the `ADDR` variable and do a `GOSUB 4100`.
+provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 
 **Example**
 * 
 ```basic
 100 REM Test unRLEWB to RAM
 110 RESTORE 1020
-120 HL=&HE000
-130 GOSUB 4100
+120 DE=&HE000
+130 GOSUB 9100
 140 END
 1000 REM Tileset Pattern data All BANKs
 1010 REM RLE WB compressed - Original size= 6144 - Compress size= 1368
@@ -403,30 +405,30 @@ provide the value of the RAM address to the `ADDR` variable and do a `GOSUB 4100
 ### Decompress RLEWB to VRAM
 
 ```basic
-4000 REM ==============================================
-4010 REM unRLEWB to VRAM for BASIC v1 (06 Feb 2022)
-4020 REM Decompress RLEWB data to VRAM
-4030 REM Input: 
-4040 REM        RESTORE [line number] --> RLEWB datas
-4050 REM        HL --> VRAM address            
-4060 REM ==============================================
-4100 READ A
-4110 IF A=&H80 THEN 4150
-4120 VPOKE HL,A
-4130 HL=HL+1
-4140 GOTO 4100
-4150 READ A
-4160 IF A=&HFF THEN RETURN
-4170 IF A=0 THEN A=&H80:GOTO 4120
-4180 READ D
-4190 FOR HL=HL TO HL+A
-4200 VPOKE HL,D
-4210 NEXT
-4220 GOTO 4100 
+9000 '=================================
+9010 ' unRLEWB to VRAM for BASIC v1
+9020 ' Decompress RLEWB data to VRAM
+9030 ' Input: 
+9040 '  RESTORE [line] <-- DATAs
+9050 '              DE <-- VRAM address
+9060 '=================================
+9100 READ A
+9110 IF A=&H80 THEN 9150
+9120 VPOKE DE,A
+9130 DE=DE+1
+9140 GOTO 9100
+9150 READ A
+9160 IF A=&HFF THEN RETURN
+9170 IF A=0 THEN A=&H80:GOTO 9120
+9180 READ B
+9190 FOR DE=DE TO DE+A
+9200 VPOKE DE,B
+9210 NEXT
+9220 GOTO 9100 
 ```
 
 To use it, you will have to do a `RESTORE` with the line number where the data starts, 
-provide the value of the VRAM address to the `VADDR` variable and do a `GOSUB 4100`.
+provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`.
 
 **Example**
 
@@ -438,8 +440,8 @@ You can find the complete example in `\decode_MSXBASIC\examples\TESTVRAM.BAS`
 120 COLOR 15,4,4
 130 SCREEN 2
 140 RESTORE 1020
-150 HL=BASE(12)
-160 GOSUB 4100
+150 DE=BASE(12)
+160 GOSUB 9100
 170 IF INKEY$="" THEN 170
 180 END
 1000 REM Tileset Pattern data All BANKs

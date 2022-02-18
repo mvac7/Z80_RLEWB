@@ -1,20 +1,20 @@
-4000 REM ==============================================
-4010 REM unRLEWB to VRAM for BASIC v1 (06 Feb 2022)
-4020 REM Decompress RLEWB data to VRAM
-4030 REM Input: 
-4040 REM        RESTORE [line number] --> RLEWB datas
-4050 REM        HL --> VRAM address            
-4060 REM ==============================================
-4100 READ A
-4110 IF A=&H80 THEN 4150
-4120 VPOKE HL,A
-4130 HL=HL+1
-4140 GOTO 4100
-4150 READ A
-4160 IF A=&HFF THEN RETURN
-4170 IF A=0 THEN A=&H80:GOTO 4120
-4180 READ D
-4190 FOR HL=HL TO HL+A
-4200 VPOKE HL,D
-4210 NEXT
-4220 GOTO 4100   
+9000 '=================================
+9010 ' unRLEWB to VRAM for BASIC v1
+9020 ' Decompress RLEWB data to VRAM
+9030 ' Input: 
+9040 '  RESTORE [line] <-- DATAs
+9050 '              DE <-- VRAM address
+9060 '=================================
+9100 READ A
+9110 IF A=&H80 THEN 9150
+9120 VPOKE DE,A
+9130 DE=DE+1
+9140 GOTO 9100
+9150 READ A
+9160 IF A=&HFF THEN RETURN
+9170 IF A=0 THEN A=&H80:GOTO 9120
+9180 READ B
+9190 FOR DE=DE TO DE+A
+9200 VPOKE DE,B
+9210 NEXT
+9220 GOTO 9100
