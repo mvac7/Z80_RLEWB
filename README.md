@@ -1,21 +1,47 @@
-# RLEWB Run-length WB 
-
+# RLEWB
 
 ## Sorry! This text is pending correction of the English translation
 
+<br/>
+
 ---
 
-## Description
+## Index
+
+- [1 Description](#1-Description)
+- [2 Encoder format](#3-Encoder-format)
+- [3 Software to compress in RLEWB](#4-Software-to-compress-in-RLEWB)
+- [4 C decoders](#5-C-decoders)
+    - [4.1 Requirements](#41-Requirements)
+    - [4.2 Decompress RLEWB to RAM](#42-Decompress-RLEWB-to-RAM)
+    - [4.3 Decompress RLEWB to VRAM](#43-Decompress-RLEWB-to-VRAM)
+- [5 Assembler decoders](#5-Assembler-decoders)
+    - [5.1 Requirements](#51-Requirements)
+    - [5.2 unRLEWBtoRAM](#52-unRLEWBtoRAM)
+    - [5.3 unRLEWBtoVRAM](#53-unRLEWBtoVRAM)
+- [6 MSX BASIC](#6-MSX-BASIC)
+    - [6.1 Decompress RLEWB to RAM](#61-Decompress-RLEWB-to-RAM)
+    - [6.2 Decompress RLEWB to VRAM](#62-Decompress-RLEWB-to-VRAM)
+- [7 Visual Basic .net](#7-Visual-Basic-.net)   
+    - [7.1 RLEWB encoder](#71-RLEWB-encoder)
+- [8 Acknowledgments](#8-Acknowledgments)
+
+<br/>
+    
+---
+
+## 1 Description
 
 RLEWB is a compressor of the RLE type [(Run-Length Encoding)](https://en.wikipedia.org/wiki/Run-length_encoding), with the advantage that it improves the results in data sequences where there are not many series of repeated values, 
 because it does not penalize for the simple values.
 
 This repository collects resources to use this compression algorithm definition.
-It includes the encoder for Visual Basic .net and the decoder for C and Assembler.
+It includes the encoder for Visual Basic .net and the decoder for C, Assembler and MSX BASIC.
 
 This project is an Open Source library.
 
-It is designed for graphical data from the TMS9918A.
+It is primarily designed for graphical data from the TMS9918A, 
+where repetitions of values are often found, especially in the color table.
   
 In the source code you can find applications for testing and learning purposes.
 
@@ -25,27 +51,7 @@ It is inspired by the [Wonder Boy RLE](https://www.smspower.org/Development/Comp
 
 ---
 
-## Requirements
-
-### For C:
-
-- [Small Device C Compiler (SDCC) v4.1](http://sdcc.sourceforge.net/)
-- [Hex2bin v2.5](http://hex2bin.sourceforge.net/)
-
-
-### For Assembler:
-
-A cross assembler:
-
-- [`asMSX`](https://github.com/Fubukimaru/asMSX) v1.0.1
-- [`Sjasm`](http://www.xl2s.tk/) v0.42 by XL2S Entertainment 
-- [`tniASM`](http://www.tni.nl/products/tniasm.html) v0.45 by The New Image
-
-<br/>
-
----
-
-## Encoder format
+## 2 Encoder format
 
 ```
  CD = Control Digit = $80
@@ -61,7 +67,7 @@ A cross assembler:
 ---
 
 
-## Software to compress in RLEWB
+## 3 Software to compress in RLEWB
 
 - [RLE-WB compressor](https://github.com/ericb59/rlewb-Compressor) for MSX Fusion-C by Eric Boez. `MacOS` `Windows 64bits` `Linux 64bits`
 - [ByteniZ3R devtool](https://github.com/mvac7/mSXdevtools_ByteniZ3R) Another generator of data tables in Bytes. `.net 4`
@@ -71,15 +77,24 @@ A cross assembler:
 
 ---
 
-## Functions for C
+## 4 C decoders
 
-Two libraries (.rel) are available, depending on the execution environment (MSX-DOS or BIOS ROM/BASIC).
+For decompression directly to VRAM, two libraries (.rel) are available, 
+depending on the execution environment (MSX-DOS or BIOS ROM/BASIC).
 
 
-### unRLEWBtoRAM
+### 4.1 Requirements
 
-- [`unRLEWBtoRAM.rel`](unRLEWB_C/toRAM/build)
-- [`unRLEWBtoRAM.h`](unRLEWB_C/toRAM/unRLEWBtoRAM.h)
+- [Small Device C Compiler (SDCC) v4.1](http://sdcc.sourceforge.net/)
+- [Hex2bin v2.5](http://hex2bin.sourceforge.net/)
+
+
+### 4.2 Decompress RLEWB to RAM
+
+- [`unRLEWBtoRAM.rel`](decode_C/toRAM)
+- [`unRLEWBtoRAM.h`](decode_C/toRAM/unRLEWBtoRAM.h)
+
+#### unRLEWBtoRAM
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -90,8 +105,6 @@ Two libraries (.rel) are available, depending on the execution environment (MSX-
 </table>
 
 **Example**
-
-[`unRLEWB_C/examples/toRAM/test01_SDCC`](unRLEWB_C/examples/toRAM/test01_SDCC)
 
 ```c            
 // RLE WB compressed - Original size= 2048 - Compress size= 33
@@ -114,10 +127,7 @@ void main()
 
 <br/>
 
-### unRLEWBRAM (for Assembler inline)
-
-- [`unRLEWBtoRAM.rel`](unRLEWB_C/toRAM/build)
-- [`unRLEWBtoRAM.h`](unRLEWB_C/toRAM/unRLEWBtoRAM.h)
+#### unRLEWBRAM (for Assembler inline)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBRAM</th></tr>
@@ -127,8 +137,6 @@ void main()
 </table>
  
 **Example**
-
-[`unRLEWB_C/examples/toRAM/test02_SDCC_AsmInline`](unRLEWB_C/examples/toRAM/test02_SDCC_AsmInline)
 
 ```assembly
 void SetDATA() __naked
@@ -164,10 +172,14 @@ __endasm;
 
 <br/> 
 
-### unRLEWBtoVRAM
+### 4.3 Decompress RLEWB to VRAM 
 
-- [`unRLEWBtoVRAM.rel`](unRLEWB_C/toVRAM/build)
-- [`unRLEWBtoVRAM.h`](unRLEWB_C/toVRAM/unRLEWBtoVRAM.h)
+- MSX with BIOS (ROM or MSX BASIC) [`unRLEWBtoVRAM.rel`](decode_C/toVRAM_MSXBIOS)
+- MSX-DOS [`unRLEWBtoVRAM_MSXDOS.rel`](decode_C/toVRAM_MSXDOS)
+- [`unRLEWBtoVRAM.h`](decode_C/toVRAM_MSXBIOS/unRLEWBtoVRAM.h)
+
+
+#### unRLEWBtoVRAM
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -179,8 +191,6 @@ __endasm;
 
  
 **Example**
- 
-[`unRLEWB_C/examples/toVRAM/test03_SDCC`](unRLEWB_C/examples/toVRAM/test03_SDCC) 
 
 ```c            
 // RLE WB compressed - Original size= 2048 - Compress size= 33
@@ -203,10 +213,7 @@ void main()
           
 <br/>
 
-### unRLEWBVRAM (for Assembler inline)
-
-- [`unRLEWBtoVRAM.rel`](unRLEWB_C/toVRAM/build)
-- [`unRLEWBtoVRAM.h`](unRLEWB_C/toVRAM/unRLEWBtoVRAM.h)
+#### unRLEWBVRAM (for Assembler inline)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBVRAM</th></tr>
@@ -216,8 +223,6 @@ void main()
 </table>
  
 **Example**
-
-[`unRLEWB_C/examples/toVRAM/test04_SDCC_AsmInline`](unRLEWB_C/examples/toVRAM/test04_SDCC_AsmInline)
 
 ```assembly
 void SetGFX() __naked
@@ -248,7 +253,7 @@ __endasm;
 
 ---
 
-## Assembler Routines            
+## 5 Assembler decoders           
 
 It is available with support for cross-development assemblers: asMSX, Sjasm and tniASM.
 
@@ -264,9 +269,19 @@ You can add the following Labels to your main code, to configure the decompresso
 - `DIRECTRANGE` if you have a compressor that generated a range from 3 to 254 repetitions.
 
 
-### unRLEWBtoRAM
+### 5.1 Requirements
 
-[`unRLEWBtoRAM.asm`](unRLEWB_ASM/unRLEWBtoRAM.asm)
+A cross assembler:
+
+- [`asMSX`](https://github.com/Fubukimaru/asMSX) v1.0.1
+- [`Sjasm`](http://www.xl2s.tk/) v0.42 by XL2S Entertainment 
+- [`tniASM`](http://www.tni.nl/products/tniasm.html) v0.45 by The New Image
+
+
+### 5.2 unRLEWBtoRAM
+
+- For Sjasm and tniASM [`unRLEWBtoRAM.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM.asm)
+- For asMSX [`unRLEWBtoRAM.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM_ASMSX.asm)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -276,8 +291,6 @@ You can add the following Labels to your main code, to configure the decompresso
 </table>
  
 **Example**
-
-[`examples/test03_toRAM_Sjasm`](unRLEWB_ASM/examples/test03_toRAM_Sjasm)
  
 ```assembly
   ;decompress to RAM
@@ -306,10 +319,11 @@ DATA_COL:
 
 <br/>
 
-###  unRLEWBtoVRAM
+###  5.3 unRLEWBtoVRAM
 
-- [`unRLEWB_ASM/unRLEWBtoVRAM_asmsx.asm`](unRLEWB_ASM/unRLEWBtoVRAM_asmsx.asm)
-- [`unRLEWB_ASM/unRLEWBtoVRAM_sjasm.asm`](unRLEWB_ASM/unRLEWBtoVRAM_sjasm.asm)
+- For Sjasm and tniASM [`unRLEWBtoRAM.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM.asm)
+- For asMSX on MSX BIOS (ROM or BASIC) [`unRLEWBtoRAM.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM_MSXROM_ASMSX.asm)
+- For asMSX on MSX-DOS [`unRLEWBtoRAM.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM_MSXDOS_ASMSX.asm)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -319,8 +333,6 @@ DATA_COL:
 </table>
  
 **Example** 
-
-[`unRLEWB_ASM/examples/test02_toVRAM_Sjasm`](unRLEWB_ASM/examples/test02_toVRAM_Sjasm)
 
 ```assembly 
   ld   HL,DATA_COL
@@ -344,7 +356,7 @@ DATA_COL:
 
 ---
 
-## MSX BASIC
+## 6 MSX BASIC
 
 The RLEWB encoder is so simple that it can be easily programmed in MSX BASIC. 
 
@@ -356,7 +368,7 @@ Remember that when writing the DATAs, the zeros do not need to be included.
 The best option would be to include the decompression routine in the binary itself that includes the data and execute it on load, 
 but it would be a task that you would have to do yourself since there is no tool that makes it easy for you.
 
-### Decompress RLEWB to RAM
+### 6.1 Decompress RLEWB to RAM
 
 ```basic
 9000 '=================================
@@ -385,7 +397,7 @@ To use it, you will have to do a `RESTORE` with the line number where the data s
 provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 
 **Example**
-* 
+ 
 ```basic
 100 REM Test unRLEWB to RAM
 110 RESTORE 1020
@@ -402,7 +414,7 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 1870 DATA 128,254,,128,205,,128,255
 ```
 
-### Decompress RLEWB to VRAM
+### 6.2 Decompress RLEWB to VRAM
 
 ```basic
 9000 '=================================
@@ -432,7 +444,7 @@ provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`
 
 **Example**
 
-You can find the complete example in `\decode_MSXBASIC\examples\TESTVRAM.BAS`
+You can find the complete example in [here](decode_MSXBASIC/examples/TESTVRAM.BAS).
 
 ```basic
 100 REM Test unRLEWB to VRAM
@@ -458,9 +470,9 @@ You can find the complete example in `\decode_MSXBASIC\examples\TESTVRAM.BAS`
 
 ---
 
-## Visual Basic .net   
+## 7 Visual Basic .net   
 
-### RLEWB Class
+### 7.1 RLEWB encoder
 
 [`VisualBasic_dotnet/RLEWB.vb`](VisualBasic_dotnet/RLEWB.vb)
 
@@ -476,7 +488,7 @@ You can find the complete example in `\decode_MSXBASIC\examples\TESTVRAM.BAS`
 
 ---
 
-## Acknowledgments
+## 8 Acknowledgments
   
 I want to give a special thanks to all those who freely share their knowledge with the Retrocomputing developer community.
 
