@@ -1,9 +1,5 @@
 # RLEWB
 
-## Sorry! This text is pending correction of the English translation
-
-<br/>
-
 ---
 
 ## Index
@@ -32,10 +28,12 @@
 
 ## 1 Description
 
-RLEWB is a compressor of the RLE type [(Run-Length Encoding)](https://en.wikipedia.org/wiki/Run-length_encoding), with the advantage that it improves the results in data sequences where there are not many series of repeated values, 
-because it does not penalize for the simple values.
+RLEWB is a compressor of the RLE type [(Run-Length
+Encoding)](https://en.wikipedia.org/wiki/Run-length_encoding), with the
+advantage that it improves the results in data sequences where there are not
+many series of repeated values. This is because it does not penalize for the simple values.
 
-This repository collects resources to use this compression algorithm definition.
+This repository collects resources to use this compression algorithm.
 It includes the encoder for Visual Basic .net and the decoder for C, Assembler and MSX BASIC.
 
 This project is an Open Source library.
@@ -80,7 +78,7 @@ It is inspired by the [Wonder Boy RLE](https://www.smspower.org/Development/Comp
 
 ## 4 C decoders
 
-For decompression directly to VRAM, two libraries (.rel) are available, 
+For direct decompression to VRAM, two libraries (.rel) are available, 
 depending on the execution environment (MSX-DOS or BIOS ROM/BASIC).
 
 
@@ -362,11 +360,11 @@ DATA_COL:
 The RLEWB encoder is so simple that it can be easily programmed in MSX BASIC. 
 
 Although it may not seem like it, it can be faster than directly reading the data and dumping it to memory, 
-since repeated data is written faster, although the main advantage is that you can reduce the size of your program.
+since repeated data is written faster. However, the main advantage is still that you can reduce the size of your program.
 
 Remember that when writing the DATA in BASIC it is not necessary to include the zeros.
 
-The best option would be to include the decompression routine in the binary itself that includes the data and execute it on load, 
+The best option would be to include the decompression routine in the binary that includes the data and execute it on load, 
 but it would be a task that you would have to do yourself since there is no tool that makes it easy for you.
 
 ### 6.1 Decompress RLEWB to RAM
