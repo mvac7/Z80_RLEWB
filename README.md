@@ -369,7 +369,28 @@ but it would be a task that you would have to do yourself since there is no tool
 
 ### 6.1 Decompress RLEWB to RAM
 
+- [`UNRLEWBR.BAS`](decode_MSXBASIC/UNRLEWBR.BAS)
+
+To use it, you will have to do a `RESTORE` with the line number where the data starts, 
+provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
+
+**Example**
+ 
 ```basic
+100 REM Test unRLEWB to RAM
+110 RESTORE 1020
+120 DE=&HE000
+130 GOSUB 9100
+140 END
+1000 REM map size width:32 height:11
+1010 REM RLE WB compressed - Original size= 352 - Compress size= 103
+1020 DATA 24,128,29,23,25,22,128,29,32,22,22,128,29,32,22,22
+1030 DATA 128,29,32,22,22,128,8,32,72,101,108,108,111,32,87,111
+1040 DATA 114,108,100,33,128,8,32,22,22,128,29,32,22,22,128,29
+1050 DATA 32,22,22,128,29,32,22,26,128,4,23,18,128,17,23,18
+1060 DATA 128,4,23,27,128,5,32,22,32,80,114,101,115,115,32,97
+1070 DATA 110,121,32,107,101,121,128,3,32,22,128,11,32,26,128,17
+1080 DATA 23,27,128,5,32,128,255
 9000 '=================================
 9010 ' unRLEWB to RAM for MSX BASIC
 9020 ' Decompress RLEWB data to RAM
@@ -392,34 +413,45 @@ but it would be a task that you would have to do yourself since there is no tool
 9220 GOTO 9100
 ```
 
-To use it, you will have to do a `RESTORE` with the line number where the data starts, 
-provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
+You can find another example [here](decode_MSXBASIC/examples/TESTRAM.BAS).
 
-**Example**
- 
-```basic
-100 REM Test unRLEWB to RAM
-110 RESTORE 1020
-120 DE=&HE000
-130 GOSUB 9100
-140 END
-1000 REM Tileset Pattern data All BANKs
-1010 REM RLE WB compressed - Original size= 6144 - Compress size= 1368
-1020 DATA 128,254,,128,10,,1,3,7,15,31,63,15,127,128,213
-1030 DATA 255,240,254,128,5,255,,,128,,192,224,240,248,252,128
-1040 DATA 15,,63,128,2,127,128,3,255,248,224,192,128,,128,
-1050 DATA 128,210,,31,7,3,1,1,128,2,,252,128,2,254,128
-...
-1870 DATA 128,254,,128,205,,128,255
-```
+<br/>
+
 
 ### 6.2 Decompress RLEWB to VRAM
 
+- [`UNRLEWBV.BAS`](decode_MSXBASIC/UNRLEWBV.BAS)
+
+To use it, you will have to do a `RESTORE` with the line number where the data starts, 
+provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`.
+
+**Example**
+
 ```basic
+100 ' Test unRLEWB to VRAM
+101 DEFINT A-Z
+110 COLOR 15,4,5
+120 SCREEN 1
+122 WIDTH 32
+130 RESTORE 1020
+140 DE=BASE(5)
+150 GOSUB 9100
+160 LOCATE 22,9
+170 IF INKEY$="" THEN 170
+190 END
+1000 REM map size width:32 height:11
+1010 REM RLE WB compressed - Original size= 352 - Compress size= 103
+1020 DATA 24,128,29,23,25,22,128,29,32,22,22,128,29,32,22,22
+1030 DATA 128,29,32,22,22,128,8,32,72,101,108,108,111,32,87,111
+1040 DATA 114,108,100,33,128,8,32,22,22,128,29,32,22,22,128,29
+1050 DATA 32,22,22,128,29,32,22,26,128,4,23,18,128,17,23,18
+1060 DATA 128,4,23,27,128,5,32,22,32,80,114,101,115,115,32,97
+1070 DATA 110,121,32,107,101,121,128,3,32,22,128,11,32,26,128,17
+1080 DATA 23,27,128,5,32,128,255
 9000 '=================================
 9010 ' unRLEWB to VRAM for MSX BASIC
 9020 ' Decompress RLEWB data to VRAM
-9030 ' Input: 
+9030 ' Input:
 9040 '  RESTORE [line] <-- DATAs
 9050 '              DE <-- VRAM address
 9060 '=================================
@@ -435,35 +467,10 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 9190 FOR DE=DE TO DE+A
 9200 VPOKE DE,B
 9210 NEXT
-9220 GOTO 9100 
+9220 GOTO 9100
 ```
 
-To use it, you will have to do a `RESTORE` with the line number where the data starts, 
-provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`.
-
-**Example**
-
-You can find the complete example in [here](decode_MSXBASIC/examples/TESTVRAM.BAS).
-
-```basic
-100 REM Test unRLEWB to VRAM
-110 DEFINT A-Z
-120 COLOR 15,4,4
-130 SCREEN 2
-140 RESTORE 1020
-150 DE=BASE(12)
-160 GOSUB 9100
-170 IF INKEY$="" THEN 170
-180 END
-1000 REM Tileset Pattern data All BANKs
-1010 REM RLE WB compressed - Original size= 6144 - Compress size= 1368
-1020 DATA 128,254,,128,10,,1,3,7,15,31,63,15,127,128,213
-1030 DATA 255,240,254,128,5,255,,,128,,192,224,240,248,252,128
-1040 DATA 15,,63,128,2,127,128,3,255,248,224,192,128,,128,
-1050 DATA 128,210,,31,7,3,1,1,128,2,,252,128,2,254,128
-...
-1870 DATA 128,254,,128,205,,128,255
-```
+You can find another example [here](decode_MSXBASIC/examples/TESTVRAM.BAS).
 
 <br/>
 
