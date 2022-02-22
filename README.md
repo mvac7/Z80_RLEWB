@@ -51,6 +51,8 @@ It is inspired by the [Wonder Boy RLE](https://www.smspower.org/Development/Comp
 
 ## 2 Encoder format
 
+
+
 ```
  CD = Control Digit = $80
 
@@ -60,6 +62,16 @@ It is inspired by the [Wonder Boy RLE](https://www.smspower.org/Development/Comp
                    In dd is the value to repeat.
  dd (!= CD)    --> Raw data. Values without repetition.
 ```
+
+### Example:
+
+#### Source:
+```---------- HELLO WORLD________4444``` 34 Bytes
+
+#### Result:
+```80,09,2D,20,48,45,4C,4C,4F,20,57,4F,52,4C,44,80,07,5F,80,03,34,80,FF```
+
+```CD + 9 + "-"``` + ```" HELLO WORLD"``` + ```CD + 7 + "_"``` + ```CD + 3 + "4"``` + ```CD + $FF``` 23 Bytes
 
 <br/>
 
