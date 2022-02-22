@@ -13,14 +13,15 @@
     - [4.3 Decompress RLEWB to VRAM](#43-Decompress-RLEWB-to-VRAM)
 - [5 Assembler decoders](#5-Assembler-decoders)
     - [5.1 Requirements](#51-Requirements)
-    - [5.2 unRLEWBtoRAM](#52-unRLEWBtoRAM)
-    - [5.3 unRLEWBtoVRAM](#53-unRLEWBtoVRAM)
+    - [5.2 Decompress RLEWB to RAM](#52-Decompress-RLEWB-to-RAM)
+    - [5.3 Decompress RLEWB to VRAM](#53-Decompress-RLEWB-to-VRAM)
 - [6 MSX BASIC](#6-MSX-BASIC)
     - [6.1 Decompress RLEWB to RAM](#61-Decompress-RLEWB-to-RAM)
     - [6.2 Decompress RLEWB to VRAM](#62-Decompress-RLEWB-to-VRAM)
 - [7 Visual Basic dotnet](#7-Visual-Basic-dotnet)   
     - [7.1 RLEWB encoder](#71-RLEWB-encoder)
 - [8 Acknowledgments](#8-Acknowledgments)
+- [9 References](#9-References)
 
 <br/>
     
@@ -69,9 +70,9 @@ It is inspired by the [Wonder Boy RLE](https://www.smspower.org/Development/Comp
 ```---------- HELLO WORLD________4444``` 34 Bytes
 
 #### Result:
-```80,09,2D,20,48,45,4C,4C,4F,20,57,4F,52,4C,44,80,07,5F,80,03,34,80,FF```
+```80,09,2D,20,48,45,4C,4C,4F,20,57,4F,52,4C,44,80,07,5F,80,03,34,80,FF``` 23 Bytes
 
-```CD + 9 + "-"``` + ```" HELLO WORLD"``` + ```CD + 7 + "_"``` + ```CD + 3 + "4"``` + ```CD + $FF``` 23 Bytes
+```CD + 9 + "-"``` + ```" HELLO WORLD"``` + ```CD + 7 + "_"``` + ```CD + 3 + "4"``` + ```CD + $FF```
 
 <br/>
 
@@ -289,7 +290,7 @@ A cross assembler:
 - [`tniASM`](http://www.tni.nl/products/tniasm.html) v0.45 by The New Image
 
 
-### 5.2 unRLEWBtoRAM
+### 5.2 Decompress RLEWB to RAM
 
 - For Sjasm and tniASM [`unRLEWBtoRAM.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM.asm)
 - For asMSX [`unRLEWBtoRAM_ASMSX.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM_ASMSX.asm)
@@ -550,4 +551,12 @@ I want to give a special thanks to all those who freely share their knowledge wi
 - Meisei emulator by Hap >> `?`
 
 ---
+
+<br/>
  
+## 9 References
+
+- [Run-Length Encoding](https://en.wikipedia.org/wiki/Run-length_encoding)
+- [Wonder Boy RLE](https://www.smspower.org/Development/Compression#WonderBoyRLE) compression algorithm.
+
+---
