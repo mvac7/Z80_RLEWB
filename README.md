@@ -280,7 +280,7 @@ A cross assembler:
 ### 5.2 unRLEWBtoRAM
 
 - For Sjasm and tniASM [`unRLEWBtoRAM.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM.asm)
-- For asMSX [`unRLEWBtoRAM.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM_ASMSX.asm)
+- For asMSX [`unRLEWBtoRAM_ASMSX.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM_ASMSX.asm)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -321,8 +321,8 @@ DATA_COL:
 ###  5.3 unRLEWBtoVRAM
 
 - For Sjasm and tniASM [`unRLEWBtoRAM.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM.asm)
-- For asMSX on MSX BIOS (ROM or BASIC) [`unRLEWBtoRAM.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM_MSXROM_ASMSX.asm)
-- For asMSX on MSX-DOS [`unRLEWBtoRAM.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM_MSXDOS_ASMSX.asm)
+- For asMSX on MSX BIOS (ROM or BASIC) [`unRLEWBtoVRAM_MSXROM_ASMSX.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM_MSXROM_ASMSX.asm)
+- For asMSX on MSX-DOS [`unRLEWBtoVRAM_MSXDOS_ASMSX.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM_MSXDOS_ASMSX.asm)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -377,13 +377,26 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 **Example**
  
 ```basic
-100 REM Test unRLEWB to RAM
-110 RESTORE 1020
-120 DE=&HE000
-130 GOSUB 9100
-140 END
-1000 REM map size width:32 height:11
-1010 REM RLE WB compressed - Original size= 352 - Compress size= 103
+100 ' Test unRLEWB to RAM
+110 DEFINT A-Z
+120 SCREEN 1
+122 WIDTH 32
+130 PRINT "Decompress data to RAM"
+140 RESTORE 1020
+150 DE=&HE000
+160 GOSUB 9100
+170 PRINT "Copy RAM to VRAM"
+180 DE=BASE(5)+(32*2)
+190 FOR BC=&HE000 TO &HE160
+200 A=PEEK(BC)
+210 VPOKE DE,A
+220 DE=DE+1
+230 NEXT
+240 IF INKEY$="" THEN 240
+250 LOCATE 0,14
+260 END
+1000 ' map size width:32 height:11
+1010 ' RLE WB compressed - Original size= 352 - Compress size= 103
 1020 DATA 24,128,29,23,25,22,128,29,32,22,22,128,29,32,22,22
 1030 DATA 128,29,32,22,22,128,8,32,72,101,108,108,111,32,87,111
 1040 DATA 114,108,100,33,128,8,32,22,22,128,29,32,22,22,128,29
@@ -412,6 +425,8 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 9210 NEXT
 9220 GOTO 9100
 ```
+
+Run it on [MSXPen](https://msxpen.com/codes/-MwW-L6UR7vwyRo9yMtB)
 
 You can find another example [here](decode_MSXBASIC/examples/TESTRAM.BAS).
 
@@ -470,6 +485,8 @@ provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`
 9220 GOTO 9100
 ```
 
+Run it on [MSXPen](https://msxpen.com/codes/-MwVuKO4ag8EKVap4Wcv)
+
 You can find another example [here](decode_MSXBASIC/examples/TESTVRAM.BAS).
 
 <br/>
@@ -516,6 +533,7 @@ I want to give a special thanks to all those who freely share their knowledge wi
 - BlueMSX emulator >> [`WEB`](http://www.bluemsx.com/)
 - OpenMSX emulator >> [`WEB`](http://openmsx.sourceforge.net/)
 - [`WebMSX`](https://webmsx.org/) emulator by Paulo A. Peccin >> [`gitHub`](https://github.com/ppeccin/webmsx)
+- [`MSXPen`](https://msxpen.com/) by [Rafael Jannone](https://twitter.com/jannone)
 - fMSX emulator by Marat Fayzullin [`WEB`](https://fms.komkon.org/fMSX/)
 - Meisei emulator by Hap >> `?`
 
