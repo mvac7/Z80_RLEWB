@@ -370,7 +370,7 @@ DATA_COL:
 
 ## 6 MSX BASIC
 
-The RLEWB encoder is so simple that it can be easily programmed in MSX BASIC. 
+The RLEWB decoder is so simple that it can be easily programmed in MSX BASIC. 
 
 Although it may not seem like it, it can be faster than directly reading the data and dumping it to memory, 
 since repeated data is written faster. However, the main advantage is still that you can reduce the size of your program.
