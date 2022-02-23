@@ -1,25 +1,36 @@
-﻿Public Class RLEWB
+﻿''' <summary>
+''' Run-Length Encoding (RLE) WB
+''' 
+''' CD = Control Digit = $80
+''' 
+''' CD + 0         --> When the value to be written to the output is equal to the Control Digit
+''' CD + $FF       --> End - Decompressed until it finds this value.
+''' CD +  nn + dd  --> Repeat nn+1 ($02 to $FE) value equivalent to 3 up to 255 repetitions. 
+'''                    In dd Is the value to repeat.
+''' dd (!= CD)     --> Raw data. Values without repetition. 
+''' </summary>
+Public Class RLEWB
 
-    Private Const RLEWB_CONTROL As Byte = 128
-    Private Const RLEWB_END As Byte = &HFF
+    Public Shadows Const Name As String = "RLEWB"
 
-   
+    Public Shadows Const Extension As String = "rlewb"
+
+
+    Private Const RLEWB_CONTROL As Byte = &H80 '128
+    Private Const RLEWB_CODE_CDVAL As Byte = &H0
+    Private Const RLEWB_CODE_END As Byte = &HFF
+
+
     ''' <summary>
-    ''' Run-Length Encoding (RLE WB)
-    ''' Inspired from the Wonder Boy RLE compression algorithm, published on the SMS POWER! WEBSITE.
-    ''' http://www.smspower.org/Development/Compression#WonderBoyRLE
-    ''' $80 nn dd            ; run of n consecutive identical bytes ($1>$FE), value dd
-    ''' $80 $80              ; zero value
-    ''' $80 $FF              ; end of data block
-    ''' any other value      ; raw data  
+    ''' RLEWB encoder
     ''' </summary>
     ''' <param name="data"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function GetRLEWB(ByVal data() As Byte) As Byte()
+    Public Function Compress(ByVal data() As Byte) As Byte()
+
         Dim RLEtmpData As New ArrayList
         Dim RLEtmpRaw As New ArrayList
-        Dim RLEoutputData() As Byte
         Dim isEnd As Boolean = False
 
         Dim num_rep As Byte = 0
@@ -48,12 +59,22 @@
                 RLEtmpData.Add(value)
 
                 position = position2
+
+            ElseIf num_rep = 1 And value = RLEWB_CONTROL Then
+                ' When it is the case that the value of the Control Digit is repeated twice, we will use the repetition mechanism.
+                ' 3 bytes are wasted instead of 4 (because "CD + 0" is executed twice).
+                ' Improvement for the future versions: Use the value 1 in the same way as 0, to repeat the value of the Control Digit twice. Requires modifying the decoder.
+                RLEtmpData.Add(RLEWB_CONTROL)
+                RLEtmpData.Add(num_rep) '=1
+                RLEtmpData.Add(RLEWB_CONTROL) 'delete this line for RLEWB v1.1
+
+                position = position2
             Else
                 ' write raw value
                 If value = RLEWB_CONTROL Then
                     ' $80 , 0
                     RLEtmpData.Add(RLEWB_CONTROL)
-                    RLEtmpData.Add(0)
+                    RLEtmpData.Add(RLEWB_CODE_CDVAL)
                 Else
                     ' raw
                     RLEtmpData.Add(value)
@@ -66,15 +87,60 @@
         Loop While (position < data.Length)
 
         RLEtmpData.Add(RLEWB_CONTROL)
-        RLEtmpData.Add(RLEWB_END) ' marca de final
+        RLEtmpData.Add(RLEWB_CODE_END) ' end mark
 
-        ReDim RLEoutputData(RLEtmpData.Count - 1)
+        Return RLEtmpData.ToArray(GetType(Byte))
 
-        For i As Integer = 0 To RLEtmpData.Count - 1
-            RLEoutputData(i) = RLEtmpData.Item(i)
-        Next
+    End Function
 
-        Return RLEoutputData
+
+
+    ''' <summary>
+    ''' RLEWB decoder
+    ''' </summary>
+    ''' <param name="data"></param>
+    ''' <returns></returns>
+    Public Function Decompress(ByVal data() As Byte) As Byte()
+
+        Dim tmpData As New ArrayList
+        Dim value As Byte
+        Dim code As Byte
+        Dim dataPointer As Integer = 0
+
+        While True
+            value = data(dataPointer)
+            If value = RLEWB_CONTROL Then
+                dataPointer += 1
+                code = data(dataPointer)
+                If code = RLEWB_CODE_END Then
+                    Exit While
+                ElseIf code = RLEWB_CODE_CDVAL Then
+                    'the data is equal to the value used as Control Digit.
+                    tmpData.Add(RLEWB_CONTROL)
+
+                    'RLEWB v1.1
+                    'ElseIf code = 1 Then
+                    '    tmpData.Add(RLEWB_CONTROL)
+                    '    tmpData.Add(RLEWB_CONTROL)
+
+                Else
+                    ' repeated value
+                    dataPointer += 1
+                    value = data(dataPointer)
+                    For i = 0 To code
+                        tmpData.Add(value)
+                    Next
+                End If
+            Else
+                tmpData.Add(value)
+
+            End If
+
+            dataPointer += 1
+
+        End While
+
+        Return tmpData.ToArray(GetType(Byte))
 
     End Function
 

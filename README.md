@@ -20,6 +20,7 @@
     - [6.2 Decompress RLEWB to VRAM](#62-Decompress-RLEWB-to-VRAM)
 - [7 Visual Basic dotnet](#7-Visual-Basic-dotnet)   
     - [7.1 RLEWB encoder](#71-RLEWB-encoder)
+    - [7.2 RLEWB encoder](#72-RLEWB-decoder)
 - [8 Acknowledgments](#8-Acknowledgments)
 - [9 References](#9-References)
 
@@ -390,7 +391,7 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 **Example**
  
 ```basic
-100 ' Test unRLEWB to RAM
+100 REM Test unRLEWB to RAM
 110 DEFINT A-Z
 120 SCREEN 1
 122 WIDTH 32
@@ -408,8 +409,8 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 240 IF INKEY$="" THEN 240
 250 LOCATE 0,14
 260 END
-1000 ' map size width:32 height:11
-1010 ' RLE WB compressed - Original size= 352 - Compress size= 103
+1000 REM map size width:32 height:11
+1010 REM RLE WB compressed - Original size= 352 - Compress size= 103
 1020 DATA 24,128,29,23,25,22,128,29,32,22,22,128,29,32,22,22
 1030 DATA 128,29,32,22,22,128,8,32,72,101,108,108,111,32,87,111
 1040 DATA 114,108,100,33,128,8,32,22,22,128,29,32,22,22,128,29
@@ -456,7 +457,7 @@ provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`
 **Example**
 
 ```basic
-100 ' Test unRLEWB to VRAM
+100 REM Test unRLEWB to VRAM
 101 DEFINT A-Z
 110 COLOR 15,4,5
 120 SCREEN 1
@@ -508,16 +509,28 @@ You can find another example [here](decode_MSXBASIC/examples/TESTVRAM.BAS).
 
 ## 7 Visual Basic dotnet   
 
-### 7.1 RLEWB encoder
-
 [`VisualBasic_dotnet/RLEWB.vb`](VisualBasic_dotnet/RLEWB.vb)
 
+### 7.1 RLEWB encoder
+
 <table>
-<tr><th colspan=3 align="left">GetRLEWB</th></tr>
-<tr><th>Function</th><td colspan=2>GetRLEWB(ByVal data() As Byte) As Byte()</td></tr>
-<tr><td colspan=3>Compress input Byte Array</td></tr>
+<tr><th colspan=3 align="left">Compress</th></tr>
+<tr><th>Function</th><td colspan=2>Compress(ByVal data() As Byte) As Byte()</td></tr>
+<tr><td colspan=3>Compress the input Byte Array</td></tr>
 <tr><th>Input</th><td>Byte()</td><td>Raw data</td></tr>
 <tr><th>Output</th><td>Byte()</td><td>Compress data</td></tr>
+</table>
+
+<br/>
+
+### 7.2 RLEWB decoder
+
+<table>
+<tr><th colspan=3 align="left">Decompress</th></tr>
+<tr><th>Function</th><td colspan=2>Decompress(ByVal data() As Byte) As Byte()</td></tr>
+<tr><td colspan=3>Decompress the input Byte Array.</td></tr>
+<tr><th>Input</th><td>Byte()</td><td>Compress data</td></tr>
+<tr><th>Output</th><td>Byte()</td><td>Raw data</td></tr>
 </table>
 
 <br/>
