@@ -1,14 +1,22 @@
 /* =============================================================================
-   test GFX (MSX TILES devtool)
-   v1.0 (27 jun 2014)
+   test1
+   v1.1 (11 April 2022)
+   
    Description:
     test output data from MSX TILES devtool
-    & test unWBRLE2RAM library (RLEWB to RAM uncompress)
+    & test unRLEWBtoRAM library (RLEWB to RAM decompress)
+
+  Historic of versions:
+  - v1.1 (11 April 2022) update libraries
+  - v1.0 (27 June 2014) first version
 ============================================================================= */
 
 #include "../include/newTypes.h"
-#include "../include/VDP_TMS9918.h"
+#include "../include/msxBIOS.h"
+
+#include "../include/VDP_TMS9918A_MSXROM.h"
 #include "../include/unRLEWBtoRAM.h"
+
 #include "../include/GFXdata.h"
 
 
@@ -24,14 +32,14 @@
 void main(void)
 {
     
-  color(0,0,1);
-  screen(2);
+  COLOR(0,0,4);
+  SCREEN(2);
   
-  unRLEWBtoRAM ((unsigned int) IMAGE_PAT, 0xD000);
-  copyToVRAM(0xD000,BASE12,0x1800);
+  unRLEWBtoRAM((unsigned int) IMAGE_PAT, 0xD000);
+  CopyToVRAM(0xD000,BASE12,0x1800);
   
-  unRLEWBtoRAM ((unsigned int) IMAGE_COL, 0xD000);
-  copyToVRAM(0xD000,BASE11,0x1800);
+  unRLEWBtoRAM((unsigned int) IMAGE_COL, 0xD000);
+  CopyToVRAM(0xD000,BASE11,0x1800);
   
   while(1) //to infinity and beyond!
   {
