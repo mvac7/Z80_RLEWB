@@ -30,29 +30,29 @@
 
 ## 1 Description
 
-RLEWB is a compressor of the RLE type [(Run-Length
-Encoding)](https://en.wikipedia.org/wiki/Run-length_encoding), with the
-advantage that it improves the results in data sequences where there are not
-many series of repeated values. This is because it does not penalize for the simple values.
+RLEWB is a compressor of the RLE type [(Run-Length Encoding)](https://en.wikipedia.org/wiki/Run-length_encoding), 
+with the advantage that it improves the results in data sequences where there are not many series of repeated values. 
+This is because it does not penalize for the simple values.
+
+It is designed for graphical data where repeating values are often found, 
+although positive results are obtained on other types of data as well.
 
 This repository collects resources to use this compression algorithm.
 It includes the encoder for Visual Basic .net and the decoder for C, Assembler and MSX BASIC.
 
 This project is an Open Source library.
-
-It is primarily designed for graphical data from the TMS9918A, 
-where repetitions of values are often found, especially in the color table.
   
 In the source code you can find applications for testing and learning purposes.
 
-It is inspired by the [Wonder Boy RLE](https://www.smspower.org/Development/Compression#WonderBoyRLE) compression algorithm, published on the [SMS POWER!](https://www.smspower.org/) WEBSITE.
+| Note: |
+| :---  |
+|RLEWB encoder is inspired in [Wonder Boy RLE compression algorithm](https://www.smspower.org/Development/Compression#WonderBoyRLE), published on [SMS POWER! WEBSITE](https://www.smspower.org/).|
 
 <br/>
 
 ---
 
 ## 2 Encoder format
-
 
 
 ```
