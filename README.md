@@ -5,7 +5,7 @@
 ## Index
 
 - [1 Description](#1-description)
-- [2 Encoder format](#2-wncoder-format)
+- [2 Encoder format](#2-encoder-format)
 - [3 Software to compress in RLEWB](#3-software-to-compress-in-rlewb)
 - [4 C decoders](#4-c-decoders)
     - [4.1 Requirements](#41-requirements)
