@@ -104,8 +104,8 @@ depending on the execution environment (MSX-DOS or BIOS ROM/BASIC).
 
 ### 4.2 Decompress RLEWB to RAM
 
-- [`unRLEWBtoRAM.rel`](decode_C/toRAM)
-- [`unRLEWBtoRAM.h`](decode_C/toRAM/unRLEWBtoRAM.h)
+- [`unRLEWBtoRAM.rel`](C/decode/toRAM)
+- [`unRLEWBtoRAM.h`](C/decode/toRAM/unRLEWBtoRAM.h)
 
 #### unRLEWBtoRAM
 
@@ -187,9 +187,9 @@ __endasm;
 
 ### 4.3 Decompress RLEWB to VRAM 
 
-- MSX with BIOS (ROM or MSX BASIC) [`unRLEWBtoVRAM.rel`](decode_C/toVRAM_MSXBIOS)
-- MSX-DOS [`unRLEWBtoVRAM_MSXDOS.rel`](decode_C/toVRAM_MSXDOS)
-- [`unRLEWBtoVRAM.h`](decode_C/toVRAM_MSXBIOS/unRLEWBtoVRAM.h)
+- MSX with BIOS (ROM or MSX BASIC) [`unRLEWBtoVRAM.rel`](C/decode/toVRAM_MSXBIOS)
+- MSX-DOS [`unRLEWBtoVRAM_MSXDOS.rel`](C/decode/toVRAM_MSXDOS)
+- [`unRLEWBtoVRAM.h`](C/decode/toVRAM_MSXBIOS/unRLEWBtoVRAM.h)
 
 
 #### unRLEWBtoVRAM
@@ -293,8 +293,8 @@ A cross assembler:
 
 ### 5.2 Decompress RLEWB to RAM
 
-- For Sjasm and tniASM [`unRLEWBtoRAM.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM.asm)
-- For asMSX [`unRLEWBtoRAM_ASMSX.asm`](decode_Z80asm/toRAM/sources/unRLEWBtoRAM_ASMSX.asm)
+- For Sjasm and tniASM [`unRLEWBtoRAM.asm`](AssemblerZ80/decode/toRAM/sources/unRLEWBtoRAM.asm)
+- For asMSX [`unRLEWBtoRAM_ASMSX.asm`](AssemblerZ80/decode/toRAM/sources/unRLEWBtoRAM_ASMSX.asm)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoRAM</th></tr>
@@ -334,9 +334,9 @@ DATA_COL:
 
 ###  5.3 unRLEWBtoVRAM
 
-- For Sjasm and tniASM [`unRLEWBtoRAM.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM.asm)
-- For asMSX on MSX BIOS (ROM or BASIC) [`unRLEWBtoVRAM_MSXROM_ASMSX.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM_MSXROM_ASMSX.asm)
-- For asMSX on MSX-DOS [`unRLEWBtoVRAM_MSXDOS_ASMSX.asm`](decode_Z80asm/toVRAM/sources/unRLEWBtoVRAM_MSXDOS_ASMSX.asm)
+- For Sjasm and tniASM [`unRLEWBtoVRAM.asm`](AssemblerZ80/decode/toVRAM/sources/unRLEWBtoVRAM.asm)
+- For asMSX on MSX BIOS (ROM or BASIC) [`unRLEWBtoVRAM_MSXROM_ASMSX.asm`](AssemblerZ80/decode/toVRAM/sources/unRLEWBtoVRAM_MSXROM_ASMSX.asm)
+- For asMSX on MSX-DOS [`unRLEWBtoVRAM_MSXDOS_ASMSX.asm`](AssemblerZ80/decode/toVRAM/sources/unRLEWBtoVRAM_MSXDOS_ASMSX.asm)
 
 <table>
 <tr><th colspan=3 align="left">unRLEWBtoVRAM</th></tr>
@@ -383,7 +383,7 @@ but it would be a task that you would have to do yourself since there is no tool
 
 ### 6.1 Decompress RLEWB to RAM
 
-- [`UNRLEWBR.BAS`](decode_MSXBASIC/UNRLEWBR.BAS)
+- [`UNRLEWBR.BAS`](MSXBASIC/decode/UNRLEWBR.BAS)
 
 To use it, you will have to do a `RESTORE` with the line number where the data starts, 
 provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
@@ -428,24 +428,24 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 9100 READ A
 9110 IF A=128 THEN 9130
 9120 POKE DE,A:DE=DE+1:GOTO 9100
-9130 READ A
-9140 IF A=255 THEN RETURN
-9150 IF A=0 THEN A=128:GOTO 9120
-9160 READ B
-9170 FOR DE=DE TO DE+A:POKE DE,B:NEXT
-9180 GOTO 9100  
+9130 READ B
+9140 IF B=255 THEN RETURN
+9150 IF B=0 THEN 9120
+9160 READ A
+9170 FOR DE=DE TO DE+B:POKE DE,A:NEXT
+9180 GOTO 9100 
 ```
 
-Run it on [MSXPen](https://msxpen.com/codes/-MwW-L6UR7vwyRo9yMtB)
+Run it on [MSXPen](https://msxpen.com/codes/-NaBvVVBWZ3BAXmwr85C)
 
-You can find another example [here](decode_MSXBASIC/examples/TESTRAM.BAS).
+You can find another example [here](MSXBASIC/decode/examples/TESTRAM.BAS).
 
 <br/>
 
 
 ### 6.2 Decompress RLEWB to VRAM
 
-- [`UNRLEWBV.BAS`](decode_MSXBASIC/UNRLEWBV.BAS)
+- [`UNRLEWBV.BAS`](MSXBASIC/decode/UNRLEWBV.BAS)
 
 To use it, you will have to do a `RESTORE` with the line number where the data starts, 
 provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`.
@@ -483,17 +483,17 @@ provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`
 9100 READ A
 9110 IF A=128 THEN 9130
 9120 VPOKE DE,A:DE=DE+1:GOTO 9100
-9130 READ A
-9140 IF A=255 THEN RETURN
-9150 IF A=0 THEN A=128:GOTO 9120
-9160 READ B
-9170 FOR DE=DE TO DE+A:VPOKE DE,B:NEXT
-9180 GOTO 9100
+9130 READ B
+9140 IF B=255 THEN RETURN
+9150 IF B=0 THEN 9120
+9160 READ A
+9170 FOR DE=DE TO DE+B:VPOKE DE,A:NEXT
+9180 GOTO 9100 
 ```
 
-Run it on [MSXPen](https://msxpen.com/codes/-MwVuKO4ag8EKVap4Wcv)
+Run it on [MSXPen](https://msxpen.com/codes/-NaBuuNciI1Di5mMqW1X)
 
-You can find another example [here](decode_MSXBASIC/examples/TESTVRAM.BAS).
+You can find another example [here](MSXBASIC/decode/examples/TESTVRAM.BAS).
 
 <br/>
 
@@ -536,14 +536,6 @@ I want to give a special thanks to all those who freely share their knowledge wi
 - SMS Power > [`WEB`](https://www.smspower.org/)
 - SDsnatcher > [`WEB`](https://github.com/sdsnatcher)
 - Eric Boez > [`gitHub`](https://github.com/ericb59)
-- Avelino Herrera > [`WEB`](http://msx.avelinoherrera.com/index_es.html)
-- Nerlaska > [`Blog`](http://albertodehoyonebot.blogspot.com.es)
-- MSXKun/Paxanga soft > [`WEB`](http://paxangasoft.retroinvaders.com/)
-- Fubukimaru [`gitHub`](https://github.com/Fubukimaru)
-- Marq > [`Marq`](http://www.kameli.net/marq/)
-- Sapphire/Z80ST > [`WEB`](http://z80st.auic.es/)
-- Andrear > [`Blog`](http://andrear.altervista.org/home/msxsoftware.php)
-- Konamiman [`gitHub`](https://github.com/Konamiman) [`WEB`](https://www.konamiman.com/msx/msx-e.html)
 - MSX Assembly Page > [`WEB`](http://map.grauw.nl/resources/msxbios.php)
 - Portar MSX Tech Doc > [`WEB`](https://problemkaputt.de/portar.htm)
 - MSX Resource Center > [`WEB`](http://www.msx.org/)
