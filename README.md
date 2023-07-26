@@ -51,7 +51,7 @@ In the source code you can find applications for testing and learning purposes.
 
 <br/>
 
-[Index](#index)
+[`Index`](#index)
 
 ---
 
@@ -79,6 +79,7 @@ In the source code you can find applications for testing and learning purposes.
 ```CD + 9 + "-"``` + ```" HELLO WORLD"``` + ```CD + 7 + "_"``` + ```CD + 3 + "4"``` + ```CD + $FF```
 
 <br/>
+
 [`Index`](#index)
 
 ---
@@ -266,6 +267,7 @@ __endasm;
 ```
 
 <br/>
+
 [`Index`](#index)
 
 ---
@@ -369,6 +371,7 @@ DATA_COL:
 ```            
 
 <br/>
+
 [`Index`](#index)
 
 ---
@@ -445,6 +448,7 @@ Run it on [MSXPen](https://msxpen.com/codes/-NaBvVVBWZ3BAXmwr85C)
 You can find another example [here](MSXBASIC/decode/examples/TESTRAM.BAS).
 
 <br/>
+
 [`Index`](#index)
 
 ### 6.2 Decompress RLEWB to VRAM
@@ -500,6 +504,7 @@ Run it on [MSXPen](https://msxpen.com/codes/-NaBuuNciI1Di5mMqW1X)
 You can find another example [here](MSXBASIC/decode/examples/TESTVRAM.BAS).
 
 <br/>
+
 [`Index`](#index)
 
 ---
@@ -531,6 +536,7 @@ You can find another example [here](MSXBASIC/decode/examples/TESTVRAM.BAS).
 </table>
 
 <br/>
+
 [Index](#index)
 
 ---
