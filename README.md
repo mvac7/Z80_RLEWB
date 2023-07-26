@@ -189,6 +189,8 @@ __endasm;
 
 <br/> 
 
+[`Index`](#index)
+
 ### 4.3 Decompress RLEWB to VRAM 
 
 - MSX with BIOS (ROM or MSX BASIC) [`unRLEWBtoVRAM.rel`](C/decode/toVRAM_MSXBIOS)
@@ -337,6 +339,8 @@ DATA_COL:
 ```
 
 <br/>
+
+[`Index`](#index)
 
 ###  5.3 unRLEWBtoVRAM
 
@@ -537,7 +541,7 @@ You can find another example [here](MSXBASIC/decode/examples/TESTVRAM.BAS).
 
 <br/>
 
-[Index](#index)
+[`Index`](#index)
 
 ---
 
