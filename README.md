@@ -50,7 +50,7 @@ In the source code you can find applications for testing and learning purposes.
 |RLEWB encoder is inspired in [Wonder Boy RLE compression algorithm](https://www.smspower.org/Development/Compression#WonderBoyRLE), published on [SMS POWER! WEBSITE](https://www.smspower.org/).|
 
 <br/>
-[`Index`](#index)
+[Index](#index)
 
 ---
 
@@ -530,7 +530,7 @@ You can find another example [here](MSXBASIC/decode/examples/TESTVRAM.BAS).
 </table>
 
 <br/>
-[`Index`](#index)
+[Index](#index)
 
 ---
 
