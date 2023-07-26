@@ -563,13 +563,17 @@ I want to give a special thanks to all those who freely share their knowledge wi
 - fMSX emulator by Marat Fayzullin [`WEB`](https://fms.komkon.org/fMSX/)
 - Meisei emulator by Hap >> `?`
 
----
-
 <br/>
+
+---
  
 ## 9 References
 
 - [Run-Length Encoding](https://en.wikipedia.org/wiki/Run-length_encoding)
 - [Wonder Boy RLE](https://www.smspower.org/Development/Compression#WonderBoyRLE) compression algorithm.
+
+<br/>
+
+[`Index`](#index)
 
 ---
