@@ -1,4 +1,5 @@
 # RLEWB
+Run-Length Encoding WB
 
 ---
 
@@ -15,7 +16,7 @@
     - [5.1 Requirements](#51-requirements)
     - [5.2 Decompress RLEWB to RAM](#52-decompress-rlewb-to-ram)
     - [5.3 Decompress RLEWB to VRAM](#53-decompress-rlewb-to-vram)
-- [6 MSX BASIC](#6-MSX-BASIC)
+- [6 MSX BASIC](#6-msx-basic)
     - [6.1 Decompress RLEWB to RAM](#61-decompress-rlewb-to-ram)
     - [6.2 Decompress RLEWB to VRAM](#62-decompress-rlewb-to-vram)
 - [7 Visual Basic dotnet](#7-visual-basic-dotnet)   
@@ -49,6 +50,7 @@ In the source code you can find applications for testing and learning purposes.
 |RLEWB encoder is inspired in [Wonder Boy RLE compression algorithm](https://www.smspower.org/Development/Compression#WonderBoyRLE), published on [SMS POWER! WEBSITE](https://www.smspower.org/).|
 
 <br/>
+[`Index`](#index)
 
 ---
 
@@ -76,9 +78,9 @@ In the source code you can find applications for testing and learning purposes.
 ```CD + 9 + "-"``` + ```" HELLO WORLD"``` + ```CD + 7 + "_"``` + ```CD + 3 + "4"``` + ```CD + $FF```
 
 <br/>
+[`Index`](#index)
 
 ---
-
 
 ## 3 Software to compress in RLEWB
 
@@ -120,7 +122,7 @@ depending on the execution environment (MSX-DOS or BIOS ROM/BASIC).
 **Example**
 
 ```c            
-// RLE WB compressed - Original size= 2048 - Compress size= 33
+// RLE WB compressed - Original size=2048 - Compress size=33
 const char DATA_COL[]={
   0x80,0xFE,0xFC,0x80,0xFE,0xFC,0xFC,0xFC,0x80,0x3F,0xF2,0x80,
   0x0F,0x51,0x80,0x0F,0xF2,0x80,0x0F,0x51,0x80,0x0F,0xF2,0x80,
@@ -206,7 +208,7 @@ __endasm;
 **Example**
 
 ```c            
-// RLE WB compressed - Original size= 2048 - Compress size= 33
+// RLE WB compressed - Original size=2048 - Compress size=33
 const char DATA_COL[]={
   0x80,0xFE,0xFC,0x80,0xFE,0xFC,0xFC,0xFC,0x80,0x3F,0xF2,0x80,
   0x0F,0x51,0x80,0x0F,0xF2,0x80,0x0F,0x51,0x80,0x0F,0xF2,0x80,
@@ -247,7 +249,7 @@ __asm
   
   ret  
   
-; RLE WB compressed - Original size= 2048 - Compress size= 105  
+; RLE WB compressed - Original size=2048 - Compress size=105  
 DATA_COL:
   .db 0x80,0xFE,0xFC,0x80,0xFE,0xFC,0xFC,0xFC,0x80,0x3F,0xF2,0x80
   .db 0x0F,0x51,0x80,0x0F,0xF2,0x80,0x0F,0x51,0x80,0x0F,0xF2,0x80
@@ -263,6 +265,7 @@ __endasm;
 ```
 
 <br/>
+[`Index`](#index)
 
 ---
 
@@ -319,7 +322,7 @@ A cross assembler:
   
   ret
 
-; RLE WB compressed - Original size= 2048 - Compress size= 105  
+; RLE WB compressed - Original size=2048 - Compress size=105  
 DATA_COL:
   db $80,$FE,$FC,$80,$FE,$FC,$FC,$FC,$80,$3F,$F2,$80,$0F,$51,$80,$0F
   db $F2,$80,$0F,$51,$80,$0F,$F2,$80,$07,$51,$80,$AF,$F2,$80,$07,$51
@@ -353,7 +356,7 @@ DATA_COL:
   call unRLEWBtoVRAM            
   ret
 
-; RLE WB compressed - Original size= 2048 - Compress size= 105  
+; RLE WB compressed - Original size=2048 - Compress size=105  
 DATA_COL:
   db $80,$FE,$FC,$80,$FE,$FC,$FC,$FC,$80,$3F,$F2,$80,$0F,$51,$80,$0F
   db $F2,$80,$0F,$51,$80,$0F,$F2,$80,$07,$51,$80,$AF,$F2,$80,$07,$51
@@ -364,8 +367,8 @@ DATA_COL:
   db $FE,$F3,$80,$FE,$F3,$F3,$F3,$80,$FF 
 ```            
 
-
 <br/>
+[`Index`](#index)
 
 ---
 
@@ -410,7 +413,7 @@ provide the value of the RAM address to the `DE` variable and do a `GOSUB 9100`.
 250 LOCATE 0,14
 260 END
 1000 REM map size width:32 height:11
-1010 REM RLE WB compressed - Original size= 352 - Compress size= 103
+1010 REM RLE WB compressed - Original size=352 - Compress size=103
 1020 DATA 24,128,29,23,25,22,128,29,32,22,22,128,29,32,22,22
 1030 DATA 128,29,32,22,22,128,8,32,72,101,108,108,111,32,87,111
 1040 DATA 114,108,100,33,128,8,32,22,22,128,29,32,22,22,128,29
@@ -441,7 +444,7 @@ Run it on [MSXPen](https://msxpen.com/codes/-NaBvVVBWZ3BAXmwr85C)
 You can find another example [here](MSXBASIC/decode/examples/TESTRAM.BAS).
 
 <br/>
-
+[`Index`](#index)
 
 ### 6.2 Decompress RLEWB to VRAM
 
@@ -465,7 +468,7 @@ provide the value of the VRAM address to the `DE` variable and do a `GOSUB 9100`
 170 IF INKEY$="" THEN 170
 190 END
 1000 REM map size width:32 height:11
-1010 REM RLE WB compressed - Original size= 352 - Compress size= 103
+1010 REM RLE WB compressed - Original size=352 - Compress size=103
 1020 DATA 24,128,29,23,25,22,128,29,32,22,22,128,29,32,22,22
 1030 DATA 128,29,32,22,22,128,8,32,72,101,108,108,111,32,87,111
 1040 DATA 114,108,100,33,128,8,32,22,22,128,29,32,22,22,128,29
@@ -496,6 +499,7 @@ Run it on [MSXPen](https://msxpen.com/codes/-NaBuuNciI1Di5mMqW1X)
 You can find another example [here](MSXBASIC/decode/examples/TESTVRAM.BAS).
 
 <br/>
+[`Index`](#index)
 
 ---
 
@@ -526,6 +530,7 @@ You can find another example [here](MSXBASIC/decode/examples/TESTVRAM.BAS).
 </table>
 
 <br/>
+[`Index`](#index)
 
 ---
 
